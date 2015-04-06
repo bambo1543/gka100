@@ -13,7 +13,6 @@
             android:dialogMessage="@string/phoneNumberDialogMessage"
             android:defaultValue=""
             />
-
         <EditTextPreference
             android:id="@+id/phonePin"
             android:key="@string/phonePinKey"
@@ -23,7 +22,6 @@
             android:dialogMessage="@string/phonePinDialogMessage"
             android:defaultValue="1513"
             />
-
         <EditTextPreference
             android:id="@+id/changePhonePin"
             android:key="@string/changePhonePinKey"
@@ -33,13 +31,6 @@
             android:dialogMessage="@string/changePhonePinDialogMessage"
             android:defaultValue="1513"
             />
-
-        <Preference
-            android:id="@+id/setTimeDateButton"
-            android:key="@string/setTimeDateButton"
-            android:title="@string/setTimeDateButtonTitle"
-            android:summary="@string/setTimeDateButtonSummary"
-            />
         <EditTextPreference
             android:id="@+id/alarmDeviceName"
             android:key="@string/alarmDeviceNameKey"
@@ -47,68 +38,97 @@
             android:summary="@string/alarmDeviceNameSummary"
             android:dialogTitle="@string/alarmDeviceNameDialogTitle"
             android:dialogMessage="@string/alarmDeviceNameDialogMessage"
-            android:defaultValue=""
+            />
+        <Preference
+            android:id="@+id/setTimeDateButton"
+            android:key="@string/setTimeDateButton"
+            android:title="@string/setTimeDateButtonTitle"
+            android:summary="@string/setTimeDateButtonSummary"
             />
     </PreferenceScreen>
 
     <PreferenceScreen
         android:key="phoneBook"
         android:title="@string/phoneBook">
-        <EditTextPreference
-            android:id="@+id/phoneNumber1"
-            android:defaultValue=""
-            android:dialogMessage="@string/phoneNumberDialogMessage1"
-            android:dialogTitle="@string/phoneNumberDialogTitle1"
-            android:key="@string/phoneNumber1Key"
-            android:summary="@string/phoneNumberSummary1"
-            android:title="@string/phoneNumber1" />
-        <EditTextPreference
-            android:id="@+id/phoneNumber2"
-            android:defaultValue=""
-            android:dialogMessage="@string/phoneNumberDialogMessage2"
-            android:dialogTitle="@string/phoneNumberDialogTitle2"
-            android:key="@string/phoneNumber2Key"
-            android:summary="@string/phoneNumberSummary2"
-            android:title="@string/phoneNumber2" />
-        <EditTextPreference
-            android:id="@+id/phoneNumber3"
-            android:defaultValue=""
-            android:dialogMessage="@string/phoneNumberDialogMessage3"
-            android:dialogTitle="@string/phoneNumberDialogTitle3"
-            android:key="@string/phoneNumber3Key"
-            android:summary="@string/phoneNumberSummary3"
-            android:title="@string/phoneNumber3" />
-        <EditTextPreference
-            android:id="@+id/phoneNumber4"
-            android:defaultValue=""
-            android:dialogMessage="@string/phoneNumberDialogMessage4"
-            android:dialogTitle="@string/phoneNumberDialogTitle4"
-            android:key="@string/phoneNumber4Key"
-            android:summary="@string/phoneNumberSummary4"
-            android:title="@string/phoneNumber4" />
-        <EditTextPreference
-            android:id="@+id/phoneNumber5"
-            android:defaultValue=""
-            android:dialogMessage="@string/phoneNumberDialogMessage5"
-            android:dialogTitle="@string/phoneNumberDialogTitle5"
-            android:key="@string/phoneNumber5Key"
-            android:summary="@string/phoneNumberSummary5"
-            android:title="@string/phoneNumber5" />
-        <EditTextPreference
-            android:id="@+id/phoneNumber6"
-            android:defaultValue=""
-            android:dialogMessage="@string/phoneNumberDialogMessage6"
-            android:dialogTitle="@string/phoneNumberDialogTitle6"
-            android:key="@string/phoneNumber6Key"
-            android:summary="@string/phoneNumberSummary6"
-            android:title="@string/phoneNumber6" />
+        <PreferenceCategory android:title="@string/setvalues_title">
+            <EditTextPreference
+                android:id="@+id/phoneNumber1"
+                android:key="@string/phoneNumber1Key"
+                android:title="@string/phoneNumber1"
+                android:summary="@string/phoneNumberSummary1"
+                android:dialogTitle="@string/phoneNumberDialogTitle1"
+                android:dialogMessage="@string/phoneNumberDialogMessage1"
+                />
+            <EditTextPreference
+                android:id="@+id/phoneNumber2"
+                android:key="@string/phoneNumber2Key"
+                android:title="@string/phoneNumber2"
+                android:summary="@string/phoneNumberSummary2"
+                android:dialogTitle="@string/phoneNumberDialogTitle2"
+                android:dialogMessage="@string/phoneNumberDialogMessage2"
+                />
+            <EditTextPreference
+                android:id="@+id/phoneNumber3"
+                android:key="@string/phoneNumber3Key"
+                android:title="@string/phoneNumber3"
+                android:summary="@string/phoneNumberSummary3"
+                android:dialogTitle="@string/phoneNumberDialogTitle3"
+                android:dialogMessage="@string/phoneNumberDialogMessage3"
+                />
+            <EditTextPreference
+                android:id="@+id/phoneNumber4"
+                android:key="@string/phoneNumber4Key"
+                android:title="@string/phoneNumber4"
+                android:summary="@string/phoneNumberSummary4"
+                android:dialogTitle="@string/phoneNumberDialogTitle4"
+                android:dialogMessage="@string/phoneNumberDialogMessage4"
+                />
+            <EditTextPreference
+                android:id="@+id/phoneNumber5"
+                android:key="@string/phoneNumber5Key"
+                android:title="@string/phoneNumber5"
+                android:summary="@string/phoneNumberSummary5"
+                android:dialogTitle="@string/phoneNumberDialogTitle5"
+                android:dialogMessage="@string/phoneNumberDialogMessage5"
+                />
+            <EditTextPreference
+                android:id="@+id/phoneNumber6"
+                android:key="@string/phoneNumber6Key"
+                android:title="@string/phoneNumber6"
+                android:summary="@string/phoneNumberSummary6"
+                android:dialogTitle="@string/phoneNumberDialogTitle6"
+                android:dialogMessage="@string/phoneNumberDialogMessage6"
+                />
+        </PreferenceCategory>
+        <PreferenceCategory android:title="@string/actions_title">
+            <Preference
+                android:id="@+id/readoutAllNumbers"
+                android:key="@string/readoutAllNumbers"
+                android:title="@string/readoutAllNumbersTitle"
+                android:summary="@string/readoutAllNumbersSummary"
+                />
+            <Preference
+                android:id="@+id/resetAllNumbers"
+                android:key="@string/resetAllNumbers"
+                android:title="@string/resetAllNumbersTitle"
+                android:summary="@string/resetAllNumbersSummary"
+                />
+            <EditTextPreference
+                android:id="@+id/resetOneNumber"
+                android:key="@string/resetOneNumberKey"
+                android:title="@string/resetOneNumber"
+                android:summary="@string/resetOneNumberSummary"
+                android:dialogTitle="@string/resetOneNumberTitle"
+                android:dialogMessage="@string/resetOneNumberMessage"
+                />
+        </PreferenceCategory>
 
     </PreferenceScreen>
 
     <PreferenceScreen
         android:key="audio"
         android:title="@string/audio">
-        <PreferenceCategory android:title="@string/audio_setvalues_title">
+        <PreferenceCategory android:title="@string/setvalues_title">
             <EditTextPreference
                 android:id="@+id/speakerVolume"
                 android:defaultValue="6"
@@ -151,7 +171,7 @@
                 android:key="remoteControlVolume"
                 android:title="@string/remoteControlVolumeTitle" />
         </PreferenceCategory>
-        <PreferenceCategory android:title="@string/audio_actions_title">
+        <PreferenceCategory android:title="@string/actions_title">
             <Preference
                 android:id="@+id/sendAudioSettings"
                 android:key="@string/sendAudioSettingsButton"

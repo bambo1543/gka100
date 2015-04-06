@@ -21,16 +21,6 @@ public class AudioService {
         saveResponse(preferences, values);
     }
 
-    private void saveResponse(SharedPreferences preferences, String[] values) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("speakerVolume", values[0]);
-        editor.putString("micSensitivity", values[1]);
-        editor.putString("ringtoneMelody", values[2]);
-        editor.putString("ringtoneVolume", values[3]);
-        editor.putString("alarmVolume", values[4]);
-        editor.putString("remoteControlVolume", values[5]).apply();
-    }
-
     String[] parseResponse(String message) {
         String[] values = new String[6];
         int indexOfSpeaker = message.indexOf("Speaker:") + "Speaker:".length();
@@ -52,6 +42,16 @@ public class AudioService {
         values[5] = message.substring(indexOfConfirmVolume + 1, indexOfConfirmVolume + 2 );
 
         return values;
+    }
+
+    private void saveResponse(SharedPreferences preferences, String[] values) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("speakerVolume", values[0]);
+        editor.putString("micSensitivity", values[1]);
+        editor.putString("ringtoneMelody", values[2]);
+        editor.putString("ringtoneVolume", values[3]);
+        editor.putString("alarmVolume", values[4]);
+        editor.putString("remoteControlVolume", values[5]).apply();
     }
 
 }

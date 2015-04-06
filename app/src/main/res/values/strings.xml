@@ -5,6 +5,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_update">Update</string>
+    <string name="action_rectangle">Rectangle</string>
 
     <string name="baseSettings">Basics</string>
 
@@ -75,8 +76,23 @@
     <string name="phoneNumberDialogTitle6">Phone number 6</string>
     <string name="phoneNumberDialogMessage6">Number of phone 6</string>
 
+    <string name="readoutAllNumbers">readoutAllNumbers</string>
+    <string name="readoutAllNumbersTitle">Read out numbers</string>
+    <string name="readoutAllNumbersSummary">Read out all numbers from GKA100</string>
+
+    <string name="resetAllNumbers">resetAllNumbers</string>
+    <string name="resetAllNumbersTitle">Reset numbers</string>
+    <string name="resetAllNumbersSummary">Reset all numbers in GKA100</string>
+
+    <string name="resetOneNumberKey">resetOneNumber</string>
+    <string name="resetOneNumber">Reset number</string>
+    <string name="resetOneNumberSummary">Resets the specified number</string>
+    <string name="resetOneNumberTitle">Reset number</string>
+    <string name="resetOneNumberMessage">Resets the specified number</string>
+
+
     <string name="audio">Audio</string>
-    <string name="audio_setvalues_title">Set Values</string>
+    <string name="setvalues_title">Set Values</string>
     <string name="speakerVolumeTitle">Speaker volume</string>
     <string name="speakerVolumeDialogTitle">Speaker volume</string>
     <string name="micSensitivityTitle">Microfone sensitivity</string>
@@ -89,14 +105,14 @@
     <string name="remoteControlVolumeTitle">Remote control volume</string>
     <string name="remoteControlVolumeDialogTitle">Remote control volume</string>
 
-    <string name="audio_actions_title">Actions</string>
+    <string name="actions_title">Actions</string>
     <string name="sendAudioSettingsButton">sendAudioSettings</string>
     <string name="sendAudioSettingsButtonTitle">Send audio settings</string>
     <string name="sendAudioSettingsButtonSummary">Send audio settings to GKA100</string>
 
     <string name="receiveAudioSettingsButton">receiveAudioSettings</string>
-    <string name="receiveAudioSettingsButtonTitle">Receive audio settings</string>
-    <string name="receiveAudioSettingsButtonSummary">Receive audio settings from GKA100</string>
+    <string name="receiveAudioSettingsButtonTitle">Read out audio settings</string>
+    <string name="receiveAudioSettingsButtonSummary">Read out audio settings from GKA100</string>
 
     <string name="resetAudioSettingsButton">resetAudioSettings</string>
     <string name="resetAudioSettingsButtonTitle">Reset audio settings</string>

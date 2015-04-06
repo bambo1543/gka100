@@ -1,43 +1,50 @@
 package it.bambo.gka100;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.telephony.SmsManager;
-import android.widget.Toast;
+import android.preference.PreferenceGroup;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import it.bambo.gka100.attributes.AudioAttributes;
-import it.bambo.gka100.utils.StringUtils;
+import it.bambo.gka100.sms.SMSSender;
 
 /**
  *
  * @author <a href="mailto:andreas.bga@gmail.com">Andreas Baumgartner</a> on 23.03.14.
  */
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private final static SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("HH mm dd MM yy");
 
-    private SmsManager smsManager;
-
-    private String phoneNumber;
-    private String phonePin;
+    private SMSSender smsSender;
 
     private EditTextPreference phonePinPreference;
     private EditTextPreference changePhonePinPreference;
+
+    private List<String> excludeValueAsSummary = Arrays.asList("changePhonePin", "resetOneNumber");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-        smsManager = SmsManager.getDefault();
+        smsSender = SMSSender.getInstance();
 
+        initBasics();
+        initPhoneNumbers();
+        initAudio();
+
+        initSummary(getPreferenceScreen());
+    }
+
+    private void initBasics() {
         phonePinPreference = (EditTextPreference) findPreference(getString(R.string.phonePinKey));
         assert phonePinPreference != null;
         phonePinPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -57,7 +64,7 @@ public class SettingsActivity extends PreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
                 String newPin = o.toString();
-                sendAction(preference.getContext(), "SET PIN " + newPin);
+                smsSender.sendAction(preference.getContext(), "SET PIN " + newPin);
                 SharedPreferences.Editor editor = getPreferenceManager().getSharedPreferences().edit();
                 editor.putString("phonePin", newPin).apply();
                 phonePinPreference.setText(newPin);
@@ -70,7 +77,7 @@ public class SettingsActivity extends PreferenceActivity {
         alarmDeviceName.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                sendAction(preference.getContext(), "SET NAME " + o.toString());
+                smsSender.sendAction(preference.getContext(), "SET NAME " + o.toString());
                 return true;
             }
         });
@@ -81,15 +88,10 @@ public class SettingsActivity extends PreferenceActivity {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 Date now = new Date();
-                sendAction(preference.getContext(), "SET DATE " + DATE_TIME_FORMAT.format(now));
+                smsSender.sendAction(preference.getContext(), "SET DATE " + DATE_TIME_FORMAT.format(now));
                 return true;
             }
         });
-
-        initPhoneNumbers();
-
-        initAudio();
-
     }
 
     private void initPhoneNumbers() {
@@ -98,8 +100,8 @@ public class SettingsActivity extends PreferenceActivity {
         phoneNumber1.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                sendAction(preference.getContext(), "SET TEL1 " + o.toString());
-                return true;
+                smsSender.sendAction(preference.getContext(), "SET TEL1 " + o.toString());
+                return false;
             }
         });
         EditTextPreference phoneNumber2 = (EditTextPreference) findPreference(getString(R.string.phoneNumber2Key));
@@ -107,8 +109,8 @@ public class SettingsActivity extends PreferenceActivity {
         phoneNumber2.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                sendAction(preference.getContext(), "SET TEL2 " + o.toString());
-                return true;
+                smsSender.sendAction(preference.getContext(), "SET TEL2 " + o.toString());
+                return false;
             }
         });
         EditTextPreference phoneNumber3 = (EditTextPreference) findPreference(getString(R.string.phoneNumber3Key));
@@ -116,8 +118,8 @@ public class SettingsActivity extends PreferenceActivity {
         phoneNumber3.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                sendAction(preference.getContext(), "SET TEL3 " + o.toString());
-                return true;
+                smsSender.sendAction(preference.getContext(), "SET TEL3 " + o.toString());
+                return false;
             }
         });
         EditTextPreference phoneNumber4 = (EditTextPreference) findPreference(getString(R.string.phoneNumber4Key));
@@ -125,8 +127,8 @@ public class SettingsActivity extends PreferenceActivity {
         phoneNumber4.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                sendAction(preference.getContext(), "SET TEL4 " + o.toString());
-                return true;
+                smsSender.sendAction(preference.getContext(), "SET TEL4 " + o.toString());
+                return false;
             }
         });
         EditTextPreference phoneNumber5 = (EditTextPreference) findPreference(getString(R.string.phoneNumber5Key));
@@ -134,8 +136,8 @@ public class SettingsActivity extends PreferenceActivity {
         phoneNumber5.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                sendAction(preference.getContext(), "SET TEL5 " + o.toString());
-                return true;
+                smsSender.sendAction(preference.getContext(), "SET TEL5 " + o.toString());
+                return false;
             }
         });
         EditTextPreference phoneNumber6 = (EditTextPreference) findPreference(getString(R.string.phoneNumber6Key));
@@ -143,10 +145,39 @@ public class SettingsActivity extends PreferenceActivity {
         phoneNumber6.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                sendAction(preference.getContext(), "SET TEL6 " + o.toString());
+                smsSender.sendAction(preference.getContext(), "SET TEL6 " + o.toString());
+                return false;
+            }
+        });
+
+        Preference readoutAllNumbers = findPreference(getString(R.string.readoutAllNumbers));
+        assert readoutAllNumbers != null;
+        readoutAllNumbers.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                smsSender.sendAction(preference.getContext(), "TEST TEL");
                 return true;
             }
         });
+        Preference resetAllNumbers = findPreference(getString(R.string.resetAllNumbers));
+        assert resetAllNumbers != null;
+        resetAllNumbers.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                smsSender.sendAction(preference.getContext(), "RESET TELALL");
+                return true;
+            }
+        });
+        EditTextPreference resetOneNumber = (EditTextPreference) findPreference(getString(R.string.resetOneNumberKey));
+        assert resetOneNumber != null;
+        resetOneNumber.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                smsSender.sendAction(preference.getContext(), "RESET TEL" + o.toString());
+                return false;
+            }
+        });
+
     }
 
     private void initAudio() {
@@ -166,7 +197,7 @@ public class SettingsActivity extends PreferenceActivity {
                 sb.append(sharedPreferences.getString(AudioAttributes.ALARM_VOLUME.getPreferenceKey(), AudioAttributes.ALARM_VOLUME.getDefaultValue())).append(" ");
                 sb.append(sharedPreferences.getString(AudioAttributes.CONFIRM_VOLUME.getPreferenceKey(), AudioAttributes.CONFIRM_VOLUME.getDefaultValue()));
 
-                sendAction(preference.getContext(), sb.toString());
+                smsSender.sendAction(preference.getContext(), sb.toString());
                 return true;
             }
         });
@@ -175,7 +206,7 @@ public class SettingsActivity extends PreferenceActivity {
         receiveAudioSettingsButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                sendAction(preference.getContext(), "TEST AUDIO");
+                smsSender.sendAction(preference.getContext(), "TEST AUDIO");
                 return true;
             }
         });
@@ -184,30 +215,59 @@ public class SettingsActivity extends PreferenceActivity {
         resetAudioSettingsButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                sendAction(preference.getContext(), "RESET AUDIO");
+                smsSender.sendAction(preference.getContext(), "RESET AUDIO");
                 return true;
             }
         });
     }
 
-    private void sendAction(Context context, String action) {
-        try {
-            updatePhoneNumberAndPin();
-            smsManager.sendTextMessage(phoneNumber, null, action + " #" + phonePin, null, null);
-            Toast.makeText(context, "Sent Action: " + action, Toast.LENGTH_LONG).show();
-        } catch (ParseException e) {
-            Toast.makeText(context, "Unable to parse: " + e.getMessage(), Toast.LENGTH_LONG).show();
+    private void initSummary(Preference p) {
+        if (p instanceof PreferenceGroup) {
+            PreferenceGroup pGrp = (PreferenceGroup) p;
+            for (int i = 0; i < pGrp.getPreferenceCount(); i++) {
+                initSummary(pGrp.getPreference(i));
+            }
+        } else {
+            updatePreference(p.getKey());
         }
     }
 
-    private void updatePhoneNumberAndPin() throws ParseException {
-        phoneNumber = getPreferenceManager().getSharedPreferences().getString("phoneNumber", null);
-        if(StringUtils.isEmpty(phoneNumber)) throw new ParseException("phoneNumber", 0);
+    private void updatePreference(String key) {
+        Preference p = findPreference(key);
+        SharedPreferences preferences = p.getSharedPreferences();
 
-        phonePin = getPreferenceManager().getSharedPreferences().getString("phonePin", "1513");
-        if(StringUtils.isEmpty(phonePin)) throw new ParseException("phonePin", 0);
+        if (p instanceof EditTextPreference) {
+            EditTextPreference editTextPreference = (EditTextPreference) p;
+            Object value = preferences.getAll().get(key);
+            String string = value == null ? "" : value.toString();
+            editTextPreference.setText(string);
+            if(!excludeValueAsSummary.contains(key))
+                editTextPreference.setSummary(string);
+        } else if (p instanceof ListPreference) {
+            ListPreference listPref = (ListPreference) p;
+            if(!excludeValueAsSummary.contains(key))
+                p.setSummary(listPref.getEntry());
+        }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Set up a listener whenever a key changes
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Unregister the listener whenever a key changes
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
+    }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences preferences, String key) {
+        updatePreference(key);
+    }
 }

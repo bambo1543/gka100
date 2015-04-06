@@ -1,4 +1,4 @@
-package it.bambo.gka100.attributes;
+package it.bambo.gka100.model;
 
 /**
  * Created by andreas on 04.04.2015.
