@@ -12,6 +12,7 @@
             android:dialogTitle="@string/phoneNumberDialogTitle"
             android:dialogMessage="@string/phoneNumberDialogMessage"
             android:defaultValue=""
+            android:inputType="phone"
             />
         <EditTextPreference
             android:id="@+id/phonePin"
@@ -21,6 +22,7 @@
             android:dialogTitle="@string/phonePinDialogTitle"
             android:dialogMessage="@string/phonePinDialogMessage"
             android:defaultValue="1513"
+            android:inputType="number"
             />
         <EditTextPreference
             android:id="@+id/changePhonePin"
@@ -30,6 +32,7 @@
             android:dialogTitle="@string/changePhonePinDialogTitle"
             android:dialogMessage="@string/changePhonePinDialogMessage"
             android:defaultValue="1513"
+            android:inputType="number"
             />
         <EditTextPreference
             android:id="@+id/alarmDeviceName"
@@ -38,6 +41,7 @@
             android:summary="@string/alarmDeviceNameSummary"
             android:dialogTitle="@string/alarmDeviceNameDialogTitle"
             android:dialogMessage="@string/alarmDeviceNameDialogMessage"
+            android:inputType="text"
             />
         <Preference
             android:id="@+id/setTimeDateButton"
@@ -58,6 +62,7 @@
                 android:summary="@string/phoneNumberSummary1"
                 android:dialogTitle="@string/phoneNumberDialogTitle1"
                 android:dialogMessage="@string/phoneNumberDialogMessage1"
+                android:inputType="phone"
                 />
             <EditTextPreference
                 android:id="@+id/phoneNumber2"
@@ -66,6 +71,7 @@
                 android:summary="@string/phoneNumberSummary2"
                 android:dialogTitle="@string/phoneNumberDialogTitle2"
                 android:dialogMessage="@string/phoneNumberDialogMessage2"
+                android:inputType="phone"
                 />
             <EditTextPreference
                 android:id="@+id/phoneNumber3"
@@ -74,6 +80,7 @@
                 android:summary="@string/phoneNumberSummary3"
                 android:dialogTitle="@string/phoneNumberDialogTitle3"
                 android:dialogMessage="@string/phoneNumberDialogMessage3"
+                android:inputType="phone"
                 />
             <EditTextPreference
                 android:id="@+id/phoneNumber4"
@@ -82,6 +89,7 @@
                 android:summary="@string/phoneNumberSummary4"
                 android:dialogTitle="@string/phoneNumberDialogTitle4"
                 android:dialogMessage="@string/phoneNumberDialogMessage4"
+                android:inputType="phone"
                 />
             <EditTextPreference
                 android:id="@+id/phoneNumber5"
@@ -90,6 +98,7 @@
                 android:summary="@string/phoneNumberSummary5"
                 android:dialogTitle="@string/phoneNumberDialogTitle5"
                 android:dialogMessage="@string/phoneNumberDialogMessage5"
+                android:inputType="phone"
                 />
             <EditTextPreference
                 android:id="@+id/phoneNumber6"
@@ -98,6 +107,7 @@
                 android:summary="@string/phoneNumberSummary6"
                 android:dialogTitle="@string/phoneNumberDialogTitle6"
                 android:dialogMessage="@string/phoneNumberDialogMessage6"
+                android:inputType="phone"
                 />
         </PreferenceCategory>
         <PreferenceCategory android:title="@string/actions_title">
@@ -120,6 +130,7 @@
                 android:summary="@string/resetOneNumberSummary"
                 android:dialogTitle="@string/resetOneNumberTitle"
                 android:dialogMessage="@string/resetOneNumberMessage"
+                android:inputType="number"
                 />
         </PreferenceCategory>
 
@@ -135,58 +146,73 @@
                 android:dialogMessage="@string/audioDialogMessage"
                 android:dialogTitle="@string/speakerVolumeDialogTitle"
                 android:key="speakerVolume"
-                android:title="@string/speakerVolumeTitle" />
+                android:title="@string/speakerVolumeTitle"
+                android:inputType="number"
+                />
             <EditTextPreference
                 android:id="@+id/micSensitivity"
                 android:defaultValue="6"
                 android:dialogMessage="@string/audioDialogMessage"
                 android:dialogTitle="@string/micSensitivityDialogTitle"
                 android:key="micSensitivity"
-                android:title="@string/micSensitivityTitle" />
+                android:title="@string/micSensitivityTitle"
+                android:inputType="number"
+                />
             <ListPreference
                 android:defaultValue="7"
                 android:entries="@array/ringtoneMelodies"
                 android:entryValues="@array/ringtoneMelodiesValues"
                 android:key="ringtoneMelody"
-                android:title="@string/ringtoneMelodyTitle" />
+                android:title="@string/ringtoneMelodyTitle"
+                android:inputType="number"
+                />
             <EditTextPreference
                 android:id="@+id/ringtoneVolume"
                 android:defaultValue="7"
                 android:dialogMessage="@string/audioDialogMessage"
                 android:dialogTitle="@string/ringtoneVolumeDialogTitle"
                 android:key="ringtoneVolume"
-                android:title="@string/ringtoneVolumeTitle" />
+                android:title="@string/ringtoneVolumeTitle"
+                android:inputType="number"
+                />
             <EditTextPreference
                 android:id="@+id/alarmVolume"
                 android:defaultValue="7"
                 android:dialogMessage="@string/audioDialogMessage"
                 android:dialogTitle="@string/alarmVolumeDialogTitle"
                 android:key="alarmVolume"
-                android:title="@string/alarmVolumeTitle" />
+                android:title="@string/alarmVolumeTitle"
+                android:inputType="number"
+                />
             <EditTextPreference
                 android:id="@+id/remoteControlVolume"
                 android:defaultValue="5"
                 android:dialogMessage="@string/audioDialogMessage"
                 android:dialogTitle="@string/remoteControlVolumeDialogTitle"
                 android:key="remoteControlVolume"
-                android:title="@string/remoteControlVolumeTitle" />
+                android:title="@string/remoteControlVolumeTitle"
+                android:inputType="number"
+                />
         </PreferenceCategory>
         <PreferenceCategory android:title="@string/actions_title">
             <Preference
                 android:id="@+id/sendAudioSettings"
                 android:key="@string/sendAudioSettingsButton"
                 android:summary="@string/sendAudioSettingsButtonSummary"
-                android:title="@string/sendAudioSettingsButtonTitle" />
+                android:title="@string/sendAudioSettingsButtonTitle"
+                />
             <Preference
                 android:id="@+id/receiveAudioSettings"
                 android:key="@string/receiveAudioSettingsButton"
                 android:summary="@string/receiveAudioSettingsButtonSummary"
-                android:title="@string/receiveAudioSettingsButtonTitle" />
+                android:title="@string/receiveAudioSettingsButtonTitle"
+                />
             <Preference
                 android:id="@+id/resetAudioSettings"
                 android:key="@string/resetAudioSettingsButton"
                 android:summary="@string/resetAudioSettingsButtonSummary"
-                android:title="@string/resetAudioSettingsButtonTitle" />
+                android:title="@string/resetAudioSettingsButtonTitle"
+                />
         </PreferenceCategory>
     </PreferenceScreen>
 </PreferenceScreen>

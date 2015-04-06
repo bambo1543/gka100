@@ -245,6 +245,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 editTextPreference.setSummary(string);
         } else if (p instanceof ListPreference) {
             ListPreference listPref = (ListPreference) p;
+            listPref.setValueIndex(Integer.valueOf((String) preferences.getAll().get(key)));
             if(!excludeValueAsSummary.contains(key))
                 p.setSummary(listPref.getEntry());
         }
