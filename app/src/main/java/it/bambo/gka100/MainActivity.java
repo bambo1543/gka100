@@ -44,6 +44,7 @@ public class MainActivity extends ActionBarActivity {
     public static final String NAME_TO_GSP_INFO_MAP = "nameToGspInfoMap";
     public static final String LAST_MAP_VIEW_CAMERA = "lastMapViewCamera";
 
+    private SMSSender smsSender = SMSSender.getInstance();
     private SMSReceiver smsReceiver;
 
     private GoogleMap googleMap;
@@ -81,11 +82,6 @@ public class MainActivity extends ActionBarActivity {
         registerReceiver(smsReceiver, callInterceptorIntentFilter);
     }
 
-    private void unregisterSMSReceiver() {
-        if(smsReceiver != null)
-            unregisterReceiver(smsReceiver);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -108,9 +104,14 @@ public class MainActivity extends ActionBarActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    SMSSender smsSender = SMSSender.getInstance();
                     smsSender.sendAction(getApplicationContext(), "TEST GPS");
                 }
+                return true;
+            case R.id.action_alarm_on:
+                smsSender.sendAction(getApplicationContext(), "ALARM ENABLE");
+                return true;
+            case R.id.action_alarm_off:
+                smsSender.sendAction(getApplicationContext(), "ALARM DISABLE");
                 return true;
             case R.id.action_rectangle:
                 if(rectangleMode) {
@@ -152,6 +153,7 @@ public class MainActivity extends ActionBarActivity {
 
                     @Override
                     public View getInfoContents(Marker marker) {
+
                         return null;
                     }
                 });

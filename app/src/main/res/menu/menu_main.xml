@@ -6,6 +6,10 @@
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/action_update" android:title="@string/action_update"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_alarm_on" android:title="@string/action_alarm_on"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_alarm_off" android:title="@string/action_alarm_off"
+        android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/action_rectangle" android:title="@string/action_rectangle"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

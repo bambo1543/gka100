@@ -3,7 +3,7 @@ package it.bambo.gka100.model;
 /**
  * Created by andreas on 04.04.2015.
  */
-public class Status {
+public class DeviceStatus {
 
     // off/on
     private boolean alarm;

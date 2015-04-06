@@ -13,7 +13,7 @@ public class Env {
     public static SMSReceiver smsReceiver = null;
 
     public static boolean isProd = true;
-    public static boolean isMock = true;
+    public static boolean isMock = false;
 
     private static int NEXT_TEST_GPS_RESPONSE = 0;
     public static List<String> TEST_GPS_RESPONSE = Arrays.asList("Pajero 1.03 \n" +
