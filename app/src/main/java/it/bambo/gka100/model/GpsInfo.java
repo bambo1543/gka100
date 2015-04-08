@@ -87,4 +87,17 @@ public class GpsInfo implements Serializable {
                 + speed + "km/h\n"
                 + alt + "m";
     }
+
+    @Override
+    public String toString() {
+        return "GpsInfo{" +
+                "name='" + name + '\'' +
+                ", time=" + time +
+                ", speed=" + speed +
+                ", lat=" + lat +
+                ", lng=" + lng +
+                ", alt=" + alt +
+                ", satelliteCount=" + satelliteCount +
+                '}';
+    }
 }

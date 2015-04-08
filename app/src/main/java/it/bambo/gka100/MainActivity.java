@@ -159,7 +159,7 @@ public class MainActivity extends ActionBarActivity {
 
 
     private void initMapView(final MapViewCamera mapViewCamera) {
-        Log.i("MAPVIEW", "Create MapView...");
+        Log.i("MainActivity", "Create MapView...");
         /**
          * Catch the null pointer exception that
          * may be thrown when initialising the map
@@ -207,7 +207,7 @@ public class MainActivity extends ActionBarActivity {
                     List<GpsInfo> gpsInfos = nameToGpsInfoMap.get(name);
                     if(!gpsInfos.isEmpty()) {
                         GpsInfo lastGps = gpsInfos.get(gpsInfos.size() - 1);
-                        updateGpsInfo(lastGps, true);
+                        updateMarker(lastGps, true);
                     }
                 }
 
@@ -233,10 +233,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void updateMarker(GpsInfo gpsInfo) {
-        updateGpsInfo(gpsInfo, false);
+        updateMarker(gpsInfo, false);
     }
 
-    public void updateGpsInfo(GpsInfo gpsInfo, boolean silent) {
+    public void updateMarker(GpsInfo gpsInfo, boolean silent) {
+        Log.i("MainActivity", "updateMarker: " +gpsInfo.toString() + " silent:" + silent);
         if (null != googleMap) {
             Marker marker = nameToMarkerMap.get(gpsInfo.getName());
             if (marker != null) {

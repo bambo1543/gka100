@@ -263,20 +263,22 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
     private void updatePreference(String key) {
         Preference p = findPreference(key);
-        SharedPreferences preferences = p.getSharedPreferences();
+        if(p != null) {
+            SharedPreferences preferences = p.getSharedPreferences();
 
-        if (p instanceof EditTextPreference) {
-            EditTextPreference editTextPreference = (EditTextPreference) p;
-            Object value = preferences.getAll().get(key);
-            String string = value == null ? "" : value.toString();
-            editTextPreference.setText(string);
-            if(!excludeValueAsSummary.contains(key))
-                editTextPreference.setSummary(string);
-        } else if (p instanceof ListPreference) {
-            ListPreference listPref = (ListPreference) p;
-            listPref.setValueIndex(Integer.valueOf((String) preferences.getAll().get(key)));
-            if(!excludeValueAsSummary.contains(key))
-                p.setSummary(listPref.getEntry());
+            if (p instanceof EditTextPreference) {
+                EditTextPreference editTextPreference = (EditTextPreference) p;
+                Object value = preferences.getAll().get(key);
+                String string = value == null ? "" : value.toString();
+                editTextPreference.setText(string);
+                if(!excludeValueAsSummary.contains(key))
+                    editTextPreference.setSummary(string);
+            } else if (p instanceof ListPreference) {
+                ListPreference listPref = (ListPreference) p;
+                listPref.setValueIndex(Integer.valueOf((String) preferences.getAll().get(key)));
+                if(!excludeValueAsSummary.contains(key))
+                    p.setSummary(listPref.getEntry());
+            }
         }
     }
 
