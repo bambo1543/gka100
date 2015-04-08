@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_cat_title_set_values">Set Values</string>
+    <string name="pref_cat_title_actions">Actions</string>
+
+    <string name="pref_scr_title_basics">Basics</string>
+
+    <string name="phoneNumberKey">phoneNumber</string>
+    <string name="phoneNumberTitle">Phone number</string>
+    <string name="phoneNumberSummary">Phone number of the GKA100</string>
+    <string name="phoneNumberDialogTitle">PhoneNumber</string>
+    <string name="phoneNumberDialogMessage">Phone number of the GKA100</string>
+
+    <string name="phonePinKey">phonePin</string>
+    <string name="phonePinTitle">Pin</string>
+    <string name="phonePinSummary">Pin of the GKA100</string>
+    <string name="phonePinDialogTitle">Pin</string>
+    <string name="phonePinDialogMessage">Pin of the GKA100</string>
+
+    <string name="changePhonePinKey">changePhonePin</string>
+    <string name="changePhonePinTitle">Change pin</string>
+    <string name="changePhonePinSummary">Change pin on the GKA100</string>
+    <string name="changePhonePinDialogTitle">Change pin</string>
+    <string name="changePhonePinDialogMessage">Change pin on the GKA100</string>
+
+    <string name="alarmDeviceNameKey">alarmDeviceName</string>
+    <string name="alarmDeviceName">Set name</string>
+    <string name="alarmDeviceNameSummary">Name of the GKA100</string>
+    <string name="alarmDeviceNameDialogTitle">Set name</string>
+    <string name="alarmDeviceNameDialogMessage">Name of the GKA100</string>
+
+    <string name="setTimeDateKey">setTimeDate</string>
+    <string name="setTimeDateTitle"><![CDATA[Set date & time]]></string>
+    <string name="setTimeDateSummary"><![CDATA[Sets handy date & time to GKA100]]></string>
+
+
+    <string name="pref_scr_title_phone_book">Phone book</string>
+
+    <string name="phoneNumber1Key">phoneNumber1</string>
+    <string name="phoneNumber1">Phone number 1</string>
+    <string name="phoneNumberSummary1">Number of phone 1</string>
+    <string name="phoneNumberDialogTitle1">Phone number 1</string>
+    <string name="phoneNumberDialogMessage1">Number of phone 1</string>
+
+    <string name="phoneNumber2Key">phoneNumber2</string>
+    <string name="phoneNumber2">Phone number 2</string>
+    <string name="phoneNumberSummary2">Number of phone 2</string>
+    <string name="phoneNumberDialogTitle2">Phone number 2</string>
+    <string name="phoneNumberDialogMessage2">Number of phone 2</string>
+
+    <string name="phoneNumber3Key">phoneNumber3</string>
+    <string name="phoneNumber3">Phone number 3</string>
+    <string name="phoneNumberSummary3">Number of phone 3</string>
+    <string name="phoneNumberDialogTitle3">Phone number 3</string>
+    <string name="phoneNumberDialogMessage3">Number of phone 3</string>
+
+    <string name="phoneNumber4Key">phoneNumber4</string>
+    <string name="phoneNumber4">Phone number 4</string>
+    <string name="phoneNumberSummary4">Number of phone 4</string>
+    <string name="phoneNumberDialogTitle4">Phone number 4</string>
+    <string name="phoneNumberDialogMessage4">Number of phone 4</string>
+
+    <string name="phoneNumber5Key">phoneNumber5</string>
+    <string name="phoneNumber5">Phone number 5</string>
+    <string name="phoneNumberSummary5">Number of phone 5</string>
+    <string name="phoneNumberDialogTitle5">Phone number 5</string>
+    <string name="phoneNumberDialogMessage5">Number of phone 5</string>
+
+    <string name="phoneNumber6Key">phoneNumber6</string>
+    <string name="phoneNumber6">Phone number 6</string>
+    <string name="phoneNumberSummary6">Number of phone 6</string>
+    <string name="phoneNumberDialogTitle6">Phone number 6</string>
+    <string name="phoneNumberDialogMessage6">Number of phone 6</string>
+
+    <string name="readoutAllNumbersKey">readoutAllNumbers</string>
+    <string name="readoutAllNumbersTitle">Read out numbers</string>
+    <string name="readoutAllNumbersSummary">Read out all numbers from GKA100</string>
+
+    <string name="resetAllNumbersKey">resetAllNumbers</string>
+    <string name="resetAllNumbersTitle">Reset numbers</string>
+    <string name="resetAllNumbersSummary">Reset all numbers in GKA100</string>
+
+    <string name="resetOneNumberKey">resetOneNumber</string>
+    <string name="resetOneNumber">Reset number</string>
+    <string name="resetOneNumberSummary">Resets the specified number</string>
+    <string name="resetOneNumberTitle">Reset number</string>
+    <string name="resetOneNumberMessage">Resets the specified number</string>
+
+
+    <string name="pref_scr_title_audio">Audio</string>
+
+    <string name="speakerVolumeTitle">Speaker volume</string>
+    <string name="speakerVolumeDialogTitle">Speaker volume</string>
+    <string name="micSensitivityTitle">Microfone sensitivity</string>
+    <string name="micSensitivityDialogTitle">Microfone sensitivity</string>
+    <string name="ringtoneMelodyTitle">Ringtone melody</string>
+    <string name="ringtoneVolumeTitle">Ringtone volume</string>
+    <string name="ringtoneVolumeDialogTitle">Ringtone volume</string>
+    <string name="alarmVolumeTitle">Alarm volume</string>
+    <string name="alarmVolumeDialogTitle">Alarm volume</string>
+    <string name="remoteControlVolumeTitle">Remote control volume</string>
+    <string name="remoteControlVolumeDialogTitle">Remote control volume</string>
+    <string name="audioDialogMessage">0 – 9</string>
+
+    <string name="sendAudioSettingsKey">sendAudioSettings</string>
+    <string name="sendAudioSettingsTitle">Send audio settings</string>
+    <string name="sendAudioSettingsSummary">Send audio settings to GKA100</string>
+
+    <string name="receiveAudioSettingsKey">receiveAudioSettings</string>
+    <string name="receiveAudioSettingsTitle">Read out audio settings</string>
+    <string name="receiveAudioSettingsSummary">Read out audio settings from GKA100</string>
+
+    <string name="resetAudioSettingsKey">resetAudioSettings</string>
+    <string name="resetAudioSettingsTitle">Reset audio settings</string>
+    <string name="resetAudioSettingsSummary">Factory reset audio settings</string>
+
+
+    <string name="pref_scr_title_hardware">Hardware</string>
+
+    <string name="minVoltageKey">minVoltage</string>
+    <string name="minVoltageTitle">Voltage minimum</string>
+    <string name="minVoltageDialogTitle">Voltage minimum</string>
+    <string name="minVoltageDialogMessage">Between 600 (6.0V) and 3200 (32.0V)</string>
+
+    <string name="receiveVoltageKey">receiveVoltage</string>
+    <string name="receiveVoltageTitle">Receive</string>
+    <string name="receiveVoltageSummary">Receive voltage settings from GKA100</string>
+
+    <string name="resetVoltageKey">resetVoltage</string>
+    <string name="resetVoltageTitle">Reset</string>
+    <string name="resetVoltageSummary">Reset voltage settings at GKA100</string>
+
+</resources>

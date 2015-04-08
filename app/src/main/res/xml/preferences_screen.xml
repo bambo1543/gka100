@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen
         android:key="baseSettings"
-        android:title="@string/baseSettings">
+        android:title="@string/pref_scr_title_basics">
 
         <EditTextPreference
             android:id="@+id/phoneNumber"
@@ -45,16 +45,16 @@
             />
         <Preference
             android:id="@+id/setTimeDateButton"
-            android:key="@string/setTimeDateButton"
-            android:title="@string/setTimeDateButtonTitle"
-            android:summary="@string/setTimeDateButtonSummary"
+            android:key="@string/setTimeDateKey"
+            android:title="@string/setTimeDateTitle"
+            android:summary="@string/setTimeDateSummary"
             />
     </PreferenceScreen>
 
     <PreferenceScreen
         android:key="phoneBook"
-        android:title="@string/phoneBook">
-        <PreferenceCategory android:title="@string/setvalues_title">
+        android:title="@string/pref_scr_title_phone_book">
+        <PreferenceCategory android:title="@string/pref_cat_title_set_values">
             <EditTextPreference
                 android:id="@+id/phoneNumber1"
                 android:key="@string/phoneNumber1Key"
@@ -110,16 +110,16 @@
                 android:inputType="phone"
                 />
         </PreferenceCategory>
-        <PreferenceCategory android:title="@string/actions_title">
+        <PreferenceCategory android:title="@string/pref_cat_title_actions">
             <Preference
                 android:id="@+id/readoutAllNumbers"
-                android:key="@string/readoutAllNumbers"
+                android:key="@string/readoutAllNumbersKey"
                 android:title="@string/readoutAllNumbersTitle"
                 android:summary="@string/readoutAllNumbersSummary"
                 />
             <Preference
                 android:id="@+id/resetAllNumbers"
-                android:key="@string/resetAllNumbers"
+                android:key="@string/resetAllNumbersKey"
                 android:title="@string/resetAllNumbersTitle"
                 android:summary="@string/resetAllNumbersSummary"
                 />
@@ -138,80 +138,106 @@
 
     <PreferenceScreen
         android:key="audio"
-        android:title="@string/audio">
-        <PreferenceCategory android:title="@string/setvalues_title">
+        android:title="@string/pref_scr_title_audio">
+        <PreferenceCategory android:title="@string/pref_cat_title_set_values">
             <EditTextPreference
                 android:id="@+id/speakerVolume"
-                android:defaultValue="6"
-                android:dialogMessage="@string/audioDialogMessage"
-                android:dialogTitle="@string/speakerVolumeDialogTitle"
                 android:key="speakerVolume"
                 android:title="@string/speakerVolumeTitle"
+                android:dialogTitle="@string/speakerVolumeDialogTitle"
+                android:dialogMessage="@string/audioDialogMessage"
                 android:inputType="number"
+                android:defaultValue="6"
                 />
             <EditTextPreference
                 android:id="@+id/micSensitivity"
-                android:defaultValue="6"
-                android:dialogMessage="@string/audioDialogMessage"
-                android:dialogTitle="@string/micSensitivityDialogTitle"
                 android:key="micSensitivity"
                 android:title="@string/micSensitivityTitle"
+                android:dialogTitle="@string/micSensitivityDialogTitle"
+                android:dialogMessage="@string/audioDialogMessage"
                 android:inputType="number"
+                android:defaultValue="6"
                 />
             <ListPreference
-                android:defaultValue="7"
-                android:entries="@array/ringtoneMelodies"
-                android:entryValues="@array/ringtoneMelodiesValues"
                 android:key="ringtoneMelody"
                 android:title="@string/ringtoneMelodyTitle"
+                android:entries="@array/ringtoneMelodies"
+                android:entryValues="@array/ringtoneMelodiesValues"
                 android:inputType="number"
+                android:defaultValue="7"
                 />
             <EditTextPreference
                 android:id="@+id/ringtoneVolume"
-                android:defaultValue="7"
-                android:dialogMessage="@string/audioDialogMessage"
-                android:dialogTitle="@string/ringtoneVolumeDialogTitle"
                 android:key="ringtoneVolume"
                 android:title="@string/ringtoneVolumeTitle"
+                android:dialogTitle="@string/ringtoneVolumeDialogTitle"
+                android:dialogMessage="@string/audioDialogMessage"
                 android:inputType="number"
+                android:defaultValue="7"
                 />
             <EditTextPreference
                 android:id="@+id/alarmVolume"
-                android:defaultValue="7"
-                android:dialogMessage="@string/audioDialogMessage"
-                android:dialogTitle="@string/alarmVolumeDialogTitle"
                 android:key="alarmVolume"
                 android:title="@string/alarmVolumeTitle"
+                android:dialogTitle="@string/alarmVolumeDialogTitle"
+                android:dialogMessage="@string/audioDialogMessage"
                 android:inputType="number"
+                android:defaultValue="7"
                 />
             <EditTextPreference
                 android:id="@+id/remoteControlVolume"
-                android:defaultValue="5"
-                android:dialogMessage="@string/audioDialogMessage"
-                android:dialogTitle="@string/remoteControlVolumeDialogTitle"
                 android:key="remoteControlVolume"
                 android:title="@string/remoteControlVolumeTitle"
+                android:dialogTitle="@string/remoteControlVolumeDialogTitle"
+                android:dialogMessage="@string/audioDialogMessage"
                 android:inputType="number"
+                android:defaultValue="5"
                 />
         </PreferenceCategory>
-        <PreferenceCategory android:title="@string/actions_title">
+        <PreferenceCategory android:title="@string/pref_cat_title_actions">
             <Preference
                 android:id="@+id/sendAudioSettings"
-                android:key="@string/sendAudioSettingsButton"
-                android:summary="@string/sendAudioSettingsButtonSummary"
-                android:title="@string/sendAudioSettingsButtonTitle"
+                android:key="@string/sendAudioSettingsKey"
+                android:title="@string/sendAudioSettingsTitle"
+                android:summary="@string/sendAudioSettingsSummary"
                 />
             <Preference
                 android:id="@+id/receiveAudioSettings"
-                android:key="@string/receiveAudioSettingsButton"
-                android:summary="@string/receiveAudioSettingsButtonSummary"
-                android:title="@string/receiveAudioSettingsButtonTitle"
+                android:key="@string/receiveAudioSettingsKey"
+                android:title="@string/receiveAudioSettingsTitle"
+                android:summary="@string/receiveAudioSettingsSummary"
                 />
             <Preference
                 android:id="@+id/resetAudioSettings"
-                android:key="@string/resetAudioSettingsButton"
-                android:summary="@string/resetAudioSettingsButtonSummary"
-                android:title="@string/resetAudioSettingsButtonTitle"
+                android:key="@string/resetAudioSettingsKey"
+                android:title="@string/resetAudioSettingsTitle"
+                android:summary="@string/resetAudioSettingsSummary"
+                />
+        </PreferenceCategory>
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:key="hardware"
+        android:title="@string/pref_scr_title_hardware">
+        <PreferenceCategory android:title="@string/minVoltageTitle">
+            <EditTextPreference
+                android:id="@+id/minVoltage"
+                android:key="@string/minVoltageKey"
+                android:title="@string/minVoltageTitle"
+                android:dialogTitle="@string/minVoltageDialogTitle"
+                android:dialogMessage="@string/minVoltageDialogMessage"
+                android:inputType="number"
+                />
+            <Preference
+                android:id="@+id/receiveVoltage"
+                android:key="@string/receiveVoltageKey"
+                android:title="@string/receiveVoltageTitle"
+                android:summary="@string/receiveVoltageSummary"
+                />
+            <Preference
+                android:id="@+id/resetVoltage"
+                android:key="@string/resetVoltageKey"
+                android:title="@string/resetVoltageTitle"
+                android:summary="@string/resetVoltageSummary"
                 />
         </PreferenceCategory>
     </PreferenceScreen>

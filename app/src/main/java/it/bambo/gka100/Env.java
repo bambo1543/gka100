@@ -3,14 +3,10 @@ package it.bambo.gka100;
 import java.util.Arrays;
 import java.util.List;
 
-import it.bambo.gka100.sms.SMSReceiver;
-
 /**
  * Created by andreas on 05.04.2015.
  */
 public class Env {
-
-    public static SMSReceiver smsReceiver = null;
 
     public static boolean isMock = false;
 

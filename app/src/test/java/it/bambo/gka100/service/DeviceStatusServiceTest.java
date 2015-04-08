@@ -32,20 +32,20 @@ public class DeviceStatusServiceTest {
                 "IN2: low\n" +
                 "OUT1: off\n" +
                 "OUT2: off\n";
-        DeviceStatus deviceStatus = service.parseResponse(message);
+        DeviceStatus response = service.parseResponse(message);
 
-        Assert.assertEquals(Constants.SHORT_TIME_DATE_FORMAT.parse("21:31 06.04.15"), deviceStatus.getTime());
-        Assert.assertEquals(true, deviceStatus.isAlarm());
-        Assert.assertEquals(37, deviceStatus.getGsm());
-        Assert.assertEquals(100, deviceStatus.getAccu());
-        Assert.assertEquals(false, deviceStatus.isArea());
+        Assert.assertEquals(Constants.SHORT_TIME_DATE_FORMAT.parse("21:31 06.04.15"), response.getTime());
+        Assert.assertEquals(true, response.isAlarm());
+        Assert.assertEquals(37, response.getGsm());
+        Assert.assertEquals(100, response.getAccu());
+        Assert.assertEquals(false, response.isArea());
         //Shock
-        Assert.assertEquals(12.2f, deviceStatus.getVolt());
-        Assert.assertEquals(false, deviceStatus.isHoldAlarm());
-        Assert.assertEquals(false, deviceStatus.isIn1());
-        Assert.assertEquals(false, deviceStatus.isIn2());
-        Assert.assertEquals(false, deviceStatus.isOut1());
-        Assert.assertEquals(false, deviceStatus.isOut2());
+        Assert.assertEquals(12.2f, response.getVolt());
+        Assert.assertEquals(false, response.isHoldAlarm());
+        Assert.assertEquals(false, response.isIn1());
+        Assert.assertEquals(false, response.isIn2());
+        Assert.assertEquals(false, response.isOut1());
+        Assert.assertEquals(false, response.isOut2());
     }
 
 }

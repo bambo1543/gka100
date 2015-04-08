@@ -31,14 +31,14 @@ public class GpsServiceTest {
                 "012.193315E\n" +
                 "Altitude: 398.2m\n" +
                 "Sat. in used: 05";
-        GpsInfo gpsInfo = service.parseResponse(message);
+        GpsInfo response = service.parseResponse(message);
 
         String date = Constants.DATE_FORMAT.format(new Date());
-        Assert.assertEquals(Constants.TIME_DATE_FORMAT.parse("09:44:23" + " " + date), gpsInfo.getTime());
-        Assert.assertEquals(55, gpsInfo.getSpeed());
-        Assert.assertEquals(new LatLng(47.856735, 12.193315), gpsInfo.getLatLng());
-        Assert.assertEquals(398.2f, gpsInfo.getAlt());
-        Assert.assertEquals(5, gpsInfo.getSatelliteCount());
+        Assert.assertEquals(Constants.TIME_DATE_FORMAT.parse("09:44:23" + " " + date), response.getTime());
+        Assert.assertEquals(55, response.getSpeed());
+        Assert.assertEquals(new LatLng(47.856735, 12.193315), response.getLatLng());
+        Assert.assertEquals(398.2f, response.getAlt());
+        Assert.assertEquals(5, response.getSatelliteCount());
     }
 
 }

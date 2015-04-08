@@ -2,11 +2,11 @@ package it.bambo.gka100;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
@@ -39,7 +39,6 @@ import java.util.Map;
 import it.bambo.gka100.model.GpsInfo;
 import it.bambo.gka100.model.MapViewCamera;
 import it.bambo.gka100.service.GpsService;
-import it.bambo.gka100.sms.SMSReceiver;
 import it.bambo.gka100.sms.SMSSender;
 
 
@@ -49,7 +48,6 @@ public class MainActivity extends ActionBarActivity {
     public static final String LAST_MAP_VIEW_CAMERA = "lastMapViewCamera";
 
     private SMSSender smsSender = SMSSender.getInstance();
-    private SMSReceiver smsReceiver;
 
     private GoogleMap googleMap;
 
@@ -68,11 +66,6 @@ public class MainActivity extends ActionBarActivity {
         Log.i("LIFECYCLE", "onCreate");
         setContentView(R.layout.activity_main);
 
-        if(Env.smsReceiver == null) {
-            registerSMSReceiver();
-        }
-        smsReceiver.setMainActivityHandler(this);
-
         if(savedInstanceState != null) {
             nameToGpsInfoMap = (HashMap<String, List<GpsInfo>>) savedInstanceState.getSerializable(NAME_TO_GSP_INFO_MAP);
         }
@@ -80,17 +73,42 @@ public class MainActivity extends ActionBarActivity {
 
         SharedPreferences p = getSharedPreferences();
         if(p.contains("gps_time")) {
-            GpsInfo gpsInfo = new GpsInfo(p.getString("gps_name", ""), new Date(p.getLong("gps_time", 0)),
-                    p.getInt("gps_speed", 0), p.getFloat("gps_lat", 0), p.getFloat("gps_lng", 0), p.getFloat("gps_alt", 0), p.getInt("gps_sat_count", 0));
-            updateGpsInfo(gpsInfo);
+            GpsInfo gpsInfo = getGpsInfoFromPreferences(p);
+            updateMarker(gpsInfo);
         }
+
+        AsyncTask<Void, GpsInfo, Void> updateMarkerTask = new AsyncTask<Void, GpsInfo, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                while (true) {
+                    SharedPreferences p = getSharedPreferences();
+                    if (p.contains("gps_changed_flag")) {
+                        GpsInfo gpsInfo = getGpsInfoFromPreferences(p);
+                        publishProgress(gpsInfo);
+                        p.edit().remove("gps_changed_flag").apply();
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            protected void onProgressUpdate(GpsInfo... values) {
+                super.onProgressUpdate(values);
+                if(values.length == 1) {
+                    updateMarker(values[0]);
+                }
+            }
+        };
+        updateMarkerTask.execute();
     }
 
-    private void registerSMSReceiver() {
-        Log.i("SMSReceiver", "Register SMSReceiver...");
-        smsReceiver = new SMSReceiver();
-        IntentFilter callInterceptorIntentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
-        registerReceiver(smsReceiver, callInterceptorIntentFilter);
+    private GpsInfo getGpsInfoFromPreferences(SharedPreferences p) {
+        return new GpsInfo(p.getString("gps_name", ""), new Date(p.getLong("gps_time", 0)),
+                                    p.getInt("gps_speed", 0), p.getFloat("gps_lat", 0), p.getFloat("gps_lng", 0), p.getFloat("gps_alt", 0), p.getInt("gps_sat_count", 0));
     }
 
     @Override
@@ -110,7 +128,7 @@ public class MainActivity extends ActionBarActivity {
                 if (Env.isMock) {
                     try {
                         GpsInfo gpsInfo = GpsService.getInstance().handleResponse(Env.getNextTestGpsResponse(), getSharedPreferences());
-                        updateGpsInfo(gpsInfo);
+                        updateMarker(gpsInfo);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -214,7 +232,7 @@ public class MainActivity extends ActionBarActivity {
         return locationManager.getLastKnownLocation(provider);
     }
 
-    public void updateGpsInfo(GpsInfo gpsInfo) {
+    public void updateMarker(GpsInfo gpsInfo) {
         updateGpsInfo(gpsInfo, false);
     }
 
@@ -242,7 +260,9 @@ public class MainActivity extends ActionBarActivity {
             gpsInfos.add(gpsInfo);
 
             if(!silent)
-                googleMap.animateCamera(CameraUpdateFactory.newLatLng(gpsInfo.getLatLng()));
+                CameraUpdateFactory.newCameraPosition(
+                        new CameraPosition(gpsInfo.getLatLng(), 10f, 0f, 0f));
+//                googleMap.animateCamera(CameraUpdateFactory.newLatLng(gpsInfo.getLatLng()));
         }
     }
 
@@ -250,7 +270,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onPause() {
         Log.i("LIFECYCLE", "onPause");
         super.onPause();
-//        unregisterSMSReceiver();
     }
 
     @Override

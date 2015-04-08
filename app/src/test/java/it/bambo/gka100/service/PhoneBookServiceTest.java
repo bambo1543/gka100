@@ -31,16 +31,16 @@ public class PhoneBookServiceTest {
                 "No destination\n" +
                 "SMS6\n" +
                 "No destination\n";
-        PhoneBook phoneBook = service.parseResponse(message);
+        PhoneBook response = service.parseResponse(message);
 
-        Assert.assertEquals("Pajero", phoneBook.getName());
-        Assert.assertEquals(6, phoneBook.getNumbers().size());
-        Assert.assertEquals("+4915771543434", phoneBook.getNumbers().get(0));
-        Assert.assertEquals("233333", phoneBook.getNumbers().get(1));
-        Assert.assertEquals(null, phoneBook.getNumbers().get(2));
-        Assert.assertEquals(null, phoneBook.getNumbers().get(3));
-        Assert.assertEquals(null, phoneBook.getNumbers().get(4));
-        Assert.assertEquals(null, phoneBook.getNumbers().get(5));
+        Assert.assertEquals("Pajero", response.getName());
+        Assert.assertEquals(6, response.getNumbers().size());
+        Assert.assertEquals("+4915771543434", response.getNumbers().get(0));
+        Assert.assertEquals("233333", response.getNumbers().get(1));
+        Assert.assertEquals(null, response.getNumbers().get(2));
+        Assert.assertEquals(null, response.getNumbers().get(3));
+        Assert.assertEquals(null, response.getNumbers().get(4));
+        Assert.assertEquals(null, response.getNumbers().get(5));
     }
 
 }

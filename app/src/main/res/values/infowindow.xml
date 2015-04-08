@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map Info Window -->
+    <string name="deviceNameLabel">Name:</string>
+    <string name="latLabel">Lat:</string>
+    <string name="lngLabel">Lng:</string>
+    <string name="speedLabel">Speed:</string>
+    <string name="accuLabel">Accu:</string>
+    <string name="timeGpsLabel">Time (GPS):</string>
+    <string name="alarmLabel">Alarm:</string>
+    <string name="gsmLabel">GSM:</string>
+    <string name="timeLabel">Time:</string>
+    <string name="clipboard">Copy</string>
+    <string name="timeStatusLabel">Time (Status):</string>
+
+</resources>

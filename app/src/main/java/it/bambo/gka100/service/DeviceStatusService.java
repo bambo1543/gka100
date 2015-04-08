@@ -75,10 +75,10 @@ public class DeviceStatusService {
 
     private void saveResponse(SharedPreferences preferences, DeviceStatus deviceStatus) {
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("deviceStatus_alarm", deviceStatus.isAlarm());
-        editor.putInt("deviceStatus_accu", deviceStatus.getAccu());
-        editor.putInt("deviceStatus_gsm", deviceStatus.getGsm());
-        editor.putLong("deviceStatus_time", deviceStatus.getTime().getTime())
+        editor.putBoolean("deviceStatus_alarm", deviceStatus.isAlarm())
+        .putInt("deviceStatus_accu", deviceStatus.getAccu())
+        .putInt("deviceStatus_gsm", deviceStatus.getGsm())
+        .putLong("deviceStatus_time", deviceStatus.getTime().getTime())
                 .apply();
     }
 

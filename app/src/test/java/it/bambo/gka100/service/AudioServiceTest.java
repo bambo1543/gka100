@@ -2,7 +2,6 @@ package it.bambo.gka100.service;
 
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
 import org.junit.Test;
 
@@ -11,10 +10,10 @@ import org.junit.Test;
  */
 public class AudioServiceTest {
 
-    private AudioService audioService = AudioService.getInstance();
+    private AudioService service = AudioService.getInstance();
 
     @Test
-    public void testParseAudioResponse() {
+    public void testParseResponse() {
         String message = "Pajero 1.03\n" +
                 "--------------\n" +
                 "Speaker: 6\n" +
@@ -23,14 +22,14 @@ public class AudioServiceTest {
                 "Ring volume: 7\n" +
                 "Alarm volume: 7\n" +
                 "Confirm. volume: 5\n";
-        String[] audioResponse = audioService.parseResponse(message);
-        Assert.assertEquals(6, audioResponse.length);
-        Assert.assertEquals("6", audioResponse[0]);
-        Assert.assertEquals("6", audioResponse[1]);
-        Assert.assertEquals("7", audioResponse[2]);
-        Assert.assertEquals("7", audioResponse[3]);
-        Assert.assertEquals("7", audioResponse[4]);
-        Assert.assertEquals("5", audioResponse[5]);
+        String[] response = service.parseResponse(message);
+        Assert.assertEquals(6, response.length);
+        Assert.assertEquals("6", response[0]);
+        Assert.assertEquals("6", response[1]);
+        Assert.assertEquals("7", response[2]);
+        Assert.assertEquals("7", response[3]);
+        Assert.assertEquals("7", response[4]);
+        Assert.assertEquals("5", response[5]);
     }
 
 }

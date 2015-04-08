@@ -34,12 +34,41 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
+        addPreferencesFromResource(R.xml.preferences_screen);
         smsSender = SMSSender.getInstance();
 
         initBasics();
         initPhoneNumbers();
         initAudio();
+
+        EditTextPreference voltage = (EditTextPreference) findPreference(getString(R.string.minVoltageKey));
+        assert voltage != null;
+        voltage.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                smsSender.sendAction(preference.getContext(), "SET VOLTAGE " + o.toString());
+                return false;
+            }
+        });
+        Preference receiveVoltage = findPreference(getString(R.string.receiveVoltageKey));
+        assert receiveVoltage != null;
+        receiveVoltage.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                smsSender.sendAction(preference.getContext(), "TEST VOLTAGE");
+                return false;
+            }
+        });
+        Preference resetVoltage = findPreference(getString(R.string.resetVoltageKey));
+        assert resetVoltage != null;
+        resetVoltage.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                smsSender.sendAction(preference.getContext(), "RESET VOLTAGE");
+                return false;
+            }
+        });
+
 
         initSummary(getPreferenceScreen());
     }
@@ -82,7 +111,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             }
         });
 
-        Preference setTimeDateButton = findPreference(getString(R.string.setTimeDateButton));
+        Preference setTimeDateButton = findPreference(getString(R.string.setTimeDateKey));
         assert setTimeDateButton != null;
         setTimeDateButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -150,7 +179,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             }
         });
 
-        Preference readoutAllNumbers = findPreference(getString(R.string.readoutAllNumbers));
+        Preference readoutAllNumbers = findPreference(getString(R.string.readoutAllNumbersKey));
         assert readoutAllNumbers != null;
         readoutAllNumbers.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -159,7 +188,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 return true;
             }
         });
-        Preference resetAllNumbers = findPreference(getString(R.string.resetAllNumbers));
+        Preference resetAllNumbers = findPreference(getString(R.string.resetAllNumbersKey));
         assert resetAllNumbers != null;
         resetAllNumbers.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -181,7 +210,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     }
 
     private void initAudio() {
-        Preference sendAudioSettingsButton = findPreference(getString(R.string.sendAudioSettingsButton));
+        Preference sendAudioSettingsButton = findPreference(getString(R.string.sendAudioSettingsKey));
         assert sendAudioSettingsButton != null;
         sendAudioSettingsButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -201,7 +230,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 return true;
             }
         });
-        Preference receiveAudioSettingsButton = findPreference(getString(R.string.receiveAudioSettingsButton));
+        Preference receiveAudioSettingsButton = findPreference(getString(R.string.receiveAudioSettingsKey));
         assert receiveAudioSettingsButton != null;
         receiveAudioSettingsButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -210,7 +239,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 return true;
             }
         });
-        Preference resetAudioSettingsButton = findPreference(getString(R.string.resetAudioSettingsButton));
+        Preference resetAudioSettingsButton = findPreference(getString(R.string.resetAudioSettingsKey));
         assert resetAudioSettingsButton != null;
         resetAudioSettingsButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
