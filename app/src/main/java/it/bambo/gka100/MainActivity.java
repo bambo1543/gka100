@@ -3,6 +3,7 @@ package it.bambo.gka100;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,8 +28,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +77,13 @@ public class MainActivity extends ActionBarActivity {
             nameToGpsInfoMap = (HashMap<String, List<GpsInfo>>) savedInstanceState.getSerializable(NAME_TO_GSP_INFO_MAP);
         }
         initMapView(savedInstanceState != null ? (MapViewCamera) savedInstanceState.getSerializable(LAST_MAP_VIEW_CAMERA) : null);
+
+        SharedPreferences p = getSharedPreferences();
+        if(p.contains("gps_time")) {
+            GpsInfo gpsInfo = new GpsInfo(p.getString("gps_name", ""), new Date(p.getLong("gps_time", 0)),
+                    p.getInt("gps_speed", 0), p.getFloat("gps_lat", 0), p.getFloat("gps_lng", 0), p.getFloat("gps_alt", 0), p.getInt("gps_sat_count", 0));
+            updateGpsInfo(gpsInfo);
+        }
     }
 
     private void registerSMSReceiver() {
@@ -95,10 +106,10 @@ public class MainActivity extends ActionBarActivity {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.action_update:
+            case R.id.action_update_position:
                 if (Env.isMock) {
                     try {
-                        GpsInfo gpsInfo = GpsService.getInstance().handleResponse(Env.getNextTestGpsResponse());
+                        GpsInfo gpsInfo = GpsService.getInstance().handleResponse(Env.getNextTestGpsResponse(), getSharedPreferences());
                         updateGpsInfo(gpsInfo);
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -106,6 +117,9 @@ public class MainActivity extends ActionBarActivity {
                 } else {
                     smsSender.sendAction(getApplicationContext(), "TEST GPS");
                 }
+                return true;
+            case R.id.action_update_status:
+                smsSender.sendAction(getApplicationContext(), "STATUS");
                 return true;
             case R.id.action_alarm_on:
                 smsSender.sendAction(getApplicationContext(), "ALARM ENABLE");
@@ -145,18 +159,7 @@ public class MainActivity extends ActionBarActivity {
                 uiSettings.setMyLocationButtonEnabled(true);
                 uiSettings.setZoomControlsEnabled(true);
 
-                googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                    @Override
-                    public View getInfoWindow(Marker marker) {
-                        return null;
-                    }
-
-                    @Override
-                    public View getInfoContents(Marker marker) {
-
-                        return null;
-                    }
-                });
+                googleMap.setInfoWindowAdapter(new MarkerInfoWindowAdapter());
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
@@ -322,4 +325,100 @@ public class MainActivity extends ActionBarActivity {
 //            return(popup);
 //        }
 //  }
+
+    private class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        private final View view;
+
+        private MarkerInfoWindowAdapter() {
+            view = getLayoutInflater().inflate(R.layout.marker_info_window, null);
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+//            if (MainActivity.this.marker != null
+//                    && MainActivity.this.marker.isInfoWindowShown()) {
+//                MainActivity.this.marker.hideInfoWindow();
+//                MainActivity.this.marker.showInfoWindow();
+//            }
+            return null;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            final GpsInfo gpsInfo = markerToGpsInfoMap.get(marker);
+            SharedPreferences preferences = getSharedPreferences();
+
+            TextView nameView = (TextView) view.findViewById(R.id.deviceNameValue);
+            nameView.setText(gpsInfo.getName());
+
+            final TextView alarmView = (TextView) view.findViewById(R.id.alarmValue);
+            if(preferences.contains("deviceStatus_alarm")) {
+                alarmView.setText((preferences.getBoolean("deviceStatus_alarm", false) ? "on" : "off"));
+            } else {
+                alarmView.setText("unknown");
+            }
+
+            NumberFormat numberFormat = NumberFormat.getNumberInstance();
+            numberFormat.setMaximumFractionDigits(6);
+            final TextView latView = (TextView) view.findViewById(R.id.latValue);
+            latView.setText(numberFormat.format(gpsInfo.getLatLng().latitude));
+            
+            final TextView lngView = (TextView) view.findViewById(R.id.lngValue);
+            lngView.setText(numberFormat.format(gpsInfo.getLatLng().longitude));
+            
+            final TextView speedView = (TextView) view.findViewById(R.id.speedValue);
+            speedView.setText(gpsInfo.getSpeed() + "km/h");
+
+            final TextView timeGpsView = (TextView) view.findViewById(R.id.timeGpsValue);
+            timeGpsView.setText(Constants.TIME_DATE_FORMAT.format(gpsInfo.getTime()));
+
+
+            final TextView accuView = (TextView) view.findViewById(R.id.accuValue);
+            if(preferences.contains("deviceStatus_accu")) {
+                accuView.setText(preferences.getInt("deviceStatus_accu", 0) + "%");
+            } else {
+                accuView.setText("unknown");
+            }
+
+            final TextView gsmView = (TextView) view.findViewById(R.id.gsmValue);
+            if(preferences.contains("deviceStatus_gsm")) {
+                gsmView.setText(preferences.getInt("deviceStatus_gsm", 0) + "%");
+            } else {
+                gsmView.setText("unknown");
+            }
+
+            final TextView timeStatusView = (TextView) view.findViewById(R.id.timeStatusValue);
+            if(preferences.contains("deviceStatus_time")) {
+                timeStatusView.setText(Constants.TIME_DATE_FORMAT.format(new Date(preferences.getLong("deviceStatus_time", 0))));
+            } else {
+                timeStatusView.setText("unknown");
+            }
+
+//            final Button clipboardButton = (Button) view.findViewById(R.id.clipboardButton);
+//            clipboardButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    ClipboardManager clipboardService = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+//                    String content = new String();
+//                    content += "Name: " + gpsInfo.getName() + "\n";
+//                    content += "Alarm: " + alarmView.getText() + "\n";
+//                    content += "Lng/Lat: " + latLngView.getText() + "\n";
+//                    content += "Speed: " + speedView.getText() + "\n";
+//                    content += "Accu: " + accuView.getText() + "\n";
+//                    content += "GSM: " + gsmView.getText() + "\n";
+//                    content += "Time: " + timeView.getText() + "\n";
+//                    clipboardService.setPrimaryClip(ClipData.newPlainText("Status:" + gpsInfo.getName(), content));
+//
+//                    Toast.makeText(getApplicationContext(), "Copied to clipboard", Toast.LENGTH_LONG);
+//                }
+//            });
+
+            return view;
+        }
+    }
+
+    private SharedPreferences getSharedPreferences() {
+        return getApplicationContext().getSharedPreferences("it.bambo.gka100_preferences", Context.MODE_PRIVATE);
+    }
 }

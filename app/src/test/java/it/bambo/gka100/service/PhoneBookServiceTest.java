@@ -3,12 +3,10 @@ package it.bambo.gka100.service;
 
 import junit.framework.Assert;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.text.ParseException;
 
-import it.bambo.gka100.Env;
 import it.bambo.gka100.model.PhoneBook;
 
 /**
@@ -17,11 +15,6 @@ import it.bambo.gka100.model.PhoneBook;
 public class PhoneBookServiceTest {
 
     private PhoneBookService service = PhoneBookService.getInstance();
-
-    @Before
-    public void setUp() throws Exception {
-        Env.isProd = false;
-    }
 
     @Test
     public void testParseResponse() throws ParseException {

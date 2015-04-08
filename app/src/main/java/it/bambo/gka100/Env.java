@@ -12,7 +12,6 @@ public class Env {
 
     public static SMSReceiver smsReceiver = null;
 
-    public static boolean isProd = true;
     public static boolean isMock = false;
 
     private static int NEXT_TEST_GPS_RESPONSE = 0;

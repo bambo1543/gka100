@@ -20,6 +20,19 @@ public class GpsInfo implements Serializable {
     private float alt;
     private int satelliteCount;
 
+    public GpsInfo() {
+    }
+
+    public GpsInfo(String name, Date time, int speed, double lat, double lng, float alt, int satelliteCount) {
+        this.name = name;
+        this.time = time;
+        this.speed = speed;
+        this.lat = lat;
+        this.lng = lng;
+        this.alt = alt;
+        this.satelliteCount = satelliteCount;
+    }
+
     public String getName() {
         return name;
     }

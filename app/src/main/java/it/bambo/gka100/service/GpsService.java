@@ -25,9 +25,9 @@ public class GpsService {
         return instance;
     }
 
-    public GpsInfo handleResponse(String message) throws ParseException {
+    public GpsInfo handleResponse(String message, SharedPreferences preferences) throws ParseException {
         GpsInfo gpsInfo = parseResponse(message);
-//        saveResponse(preferences, values);
+        saveResponse(preferences, gpsInfo);
         return gpsInfo;
     }
 
@@ -63,14 +63,14 @@ public class GpsService {
     }
 
 
-    private void saveResponse(SharedPreferences preferences, String[] values) {
+    private void saveResponse(SharedPreferences preferences, GpsInfo gpsInfo) {
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("speakerVolume", values[0]);
-        editor.putString("micSensitivity", values[1]);
-        editor.putString("ringtoneMelody", values[2]);
-        editor.putString("ringtoneVolume", values[3]);
-        editor.putString("alarmVolume", values[4]);
-        editor.putString("remoteControlVolume", values[5]).apply();
+        editor.putString("gps_name", gpsInfo.getName());
+        editor.putLong("gps_time", gpsInfo.getTime().getTime());
+        editor.putInt("gps_speed", gpsInfo.getSpeed());
+        editor.putFloat("gps_lat", Double.valueOf(gpsInfo.getLatLng().latitude).floatValue());
+        editor.putFloat("gps_lng", Double.valueOf(gpsInfo.getLatLng().longitude).floatValue());
+        editor.putFloat("gps_alt", gpsInfo.getAlt());
+        editor.putInt("gps_sat_count", gpsInfo.getSatelliteCount()).apply();
     }
-
 }

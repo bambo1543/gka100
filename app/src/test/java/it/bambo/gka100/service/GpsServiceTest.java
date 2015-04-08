@@ -5,14 +5,12 @@ import com.google.android.gms.maps.model.LatLng;
 
 import junit.framework.Assert;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.text.ParseException;
 import java.util.Date;
 
 import it.bambo.gka100.Constants;
-import it.bambo.gka100.Env;
 import it.bambo.gka100.model.GpsInfo;
 
 /**
@@ -21,11 +19,6 @@ import it.bambo.gka100.model.GpsInfo;
 public class GpsServiceTest {
 
     private GpsService service = GpsService.getInstance();
-
-    @Before
-    public void setUp() throws Exception {
-        Env.isProd = false;
-    }
 
     @Test
     public void testParseResponse() throws ParseException {

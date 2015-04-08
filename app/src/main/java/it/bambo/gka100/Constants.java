@@ -12,4 +12,5 @@ public class Constants {
     public static SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
     public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
     public static SimpleDateFormat TIME_DATE_FORMAT = new SimpleDateFormat("HH:mm:ss dd.MM.yyyy");
+    public static SimpleDateFormat SHORT_TIME_DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yy");
 }
