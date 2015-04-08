@@ -39,7 +39,7 @@ public class DeviceStatusServiceTest {
         Assert.assertEquals(37, response.getGsm());
         Assert.assertEquals(100, response.getAccu());
         Assert.assertEquals(false, response.isArea());
-        //Shock
+        Assert.assertEquals("10", response.getShock());
         Assert.assertEquals(12.2f, response.getVolt());
         Assert.assertEquals(false, response.isHoldAlarm());
         Assert.assertEquals(false, response.isIn1());

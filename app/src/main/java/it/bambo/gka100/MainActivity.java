@@ -408,6 +408,13 @@ public class MainActivity extends ActionBarActivity {
                 gsmView.setText("unknown");
             }
 
+            final TextView shockView = (TextView) view.findViewById(R.id.shockValue);
+            if(preferences.contains("deviceStatus_shock")) {
+                shockView.setText(preferences.getString("deviceStatus_shock", "") + "/10");
+            } else {
+                shockView.setText("unknown");
+            }
+
             final TextView timeStatusView = (TextView) view.findViewById(R.id.timeStatusValue);
             if(preferences.contains("deviceStatus_time")) {
                 timeStatusView.setText(Constants.TIME_DATE_FORMAT.format(new Date(preferences.getLong("deviceStatus_time", 0))));

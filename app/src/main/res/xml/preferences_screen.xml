@@ -218,7 +218,7 @@
     <PreferenceScreen
         android:key="hardware"
         android:title="@string/pref_scr_title_hardware">
-        <PreferenceCategory android:title="@string/minVoltageTitle">
+        <PreferenceCategory android:title="@string/pref_cat_title_voltage">
             <EditTextPreference
                 android:id="@+id/minVoltage"
                 android:key="@string/minVoltageKey"
@@ -240,5 +240,103 @@
                 android:summary="@string/resetVoltageSummary"
                 />
         </PreferenceCategory>
+        <PreferenceCategory android:title="@string/pref_cat_title_shock">
+            <EditTextPreference
+                android:id="@+id/shock"
+                android:key="@string/shockKey"
+                android:title="@string/shockTitle"
+                android:dialogTitle="@string/shockDialogTitle"
+                android:dialogMessage="@string/shockDialogMessage"
+                android:inputType="number"
+                />
+            <Preference
+                android:id="@+id/receiveShock"
+                android:key="@string/receiveShockKey"
+                android:title="@string/receiveShockTitle"
+                android:summary="@string/receiveShockSummary"
+                />
+            <Preference
+                android:id="@+id/resetShock"
+                android:key="@string/resetShockKey"
+                android:title="@string/resetShockTitle"
+                android:summary="@string/resetShockSummary"
+                />
+        </PreferenceCategory>
     </PreferenceScreen>
+    <PreferenceScreen
+        android:key="deviceStatus"
+        android:title="@string/pref_scr_title_deviceStatus">
+        <Preference
+            android:id="@+id/deviceStatusTime"
+            android:key="@string/deviceStatusTimeKey"
+            android:title="@string/deviceStatusTimeTitle"
+            />
+        <Preference
+            android:id="@+id/deviceStatusAlarm"
+            android:key="@string/deviceStatusAlarmKey"
+            android:title="@string/deviceStatusAlarmTitle"
+            />
+        <Preference
+            android:id="@+id/deviceStatusGsm"
+            android:key="@string/deviceStatusGsmKey"
+            android:title="@string/deviceStatusGsmTitle"
+            />
+        <Preference
+            android:id="@+id/deviceStatusAccu"
+            android:key="@string/deviceStatusAccuKey"
+            android:title="@string/deviceStatusAccuTitle"
+            />
+        <Preference
+            android:id="@+id/deviceStatusArea"
+            android:key="@string/deviceStatusAreaKey"
+            android:title="@string/deviceStatusAreaTitle"
+            />
+        <Preference
+            android:id="@+id/deviceStatusShock"
+            android:key="@string/deviceStatusShockKey"
+            android:title="@string/deviceStatusShockTitle"
+            />
+        <Preference
+            android:id="@+id/deviceStatusVolt"
+            android:key="@string/deviceStatusVoltKey"
+            android:title="@string/deviceStatusVoltTitle"
+            />
+        <Preference
+            android:id="@+id/deviceStatusHoldAlarm"
+            android:key="@string/deviceStatusHoldAlarmKey"
+            android:title="@string/deviceStatusHoldAlarmTitle"
+            />
+        <Preference
+            android:id="@+id/deviceStatusIn1"
+            android:key="@string/deviceStatusIn1Key"
+            android:title="@string/deviceStatusIn1Title"
+            />
+        <Preference
+            android:id="@+id/deviceStatusIn2"
+            android:key="@string/deviceStatusIn2Key"
+            android:title="@string/deviceStatusIn2Title"
+            />
+        <Preference
+            android:id="@+id/deviceStatusOut1"
+            android:key="@string/deviceStatusOut1Key"
+            android:title="@string/deviceStatusOut1Title"
+            />
+        <Preference
+            android:id="@+id/deviceStatusOut2"
+            android:key="@string/deviceStatusOut2Key"
+            android:title="@string/deviceStatusOut2Title"
+            />
+
+
+        <PreferenceCategory android:title="@string/pref_cat_title_actions">
+            <Preference
+                android:id="@+id/receiveStatus"
+                android:key="@string/receiveStatusKey"
+                android:title="@string/receiveStatusTitle"
+                android:summary="@string/receiveStatusSummary"
+                />
+
+        </PreferenceCategory>
+    </PreferenceScreen>
+
 </PreferenceScreen>

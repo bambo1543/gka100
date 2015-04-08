@@ -41,34 +41,18 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         initPhoneNumbers();
         initAudio();
 
-        EditTextPreference voltage = (EditTextPreference) findPreference(getString(R.string.minVoltageKey));
-        assert voltage != null;
-        voltage.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                smsSender.sendAction(preference.getContext(), "SET VOLTAGE " + o.toString());
-                return false;
-            }
-        });
-        Preference receiveVoltage = findPreference(getString(R.string.receiveVoltageKey));
-        assert receiveVoltage != null;
-        receiveVoltage.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                smsSender.sendAction(preference.getContext(), "TEST VOLTAGE");
-                return false;
-            }
-        });
-        Preference resetVoltage = findPreference(getString(R.string.resetVoltageKey));
-        assert resetVoltage != null;
-        resetVoltage.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                smsSender.sendAction(preference.getContext(), "RESET VOLTAGE");
-                return false;
-            }
-        });
+        initVoltage();
+        initShock();
 
+        Preference receiveStatus = findPreference(getString(R.string.receiveStatusKey));
+        assert receiveStatus != null;
+        receiveStatus.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                smsSender.sendAction(preference.getContext(), "STATUS");
+                return false;
+            }
+        });
 
         initSummary(getPreferenceScreen());
     }
@@ -250,6 +234,66 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         });
     }
 
+    private void initVoltage() {
+        EditTextPreference voltage = (EditTextPreference) findPreference(getString(R.string.minVoltageKey));
+        assert voltage != null;
+        voltage.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                smsSender.sendAction(preference.getContext(), "SET VOLTAGE " + o.toString());
+                return false;
+            }
+        });
+        Preference receiveVoltage = findPreference(getString(R.string.receiveVoltageKey));
+        assert receiveVoltage != null;
+        receiveVoltage.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                smsSender.sendAction(preference.getContext(), "TEST VOLTAGE");
+                return false;
+            }
+        });
+        Preference resetVoltage = findPreference(getString(R.string.resetVoltageKey));
+        assert resetVoltage != null;
+        resetVoltage.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                smsSender.sendAction(preference.getContext(), "RESET VOLTAGE");
+                return false;
+            }
+        });
+    }
+
+    private void initShock() {
+        EditTextPreference shock = (EditTextPreference) findPreference(getString(R.string.shockKey));
+        assert shock != null;
+        shock.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                smsSender.sendAction(preference.getContext(), "SET SHOCK " + o.toString());
+                return false;
+            }
+        });
+        Preference receiveShock = findPreference(getString(R.string.receiveShockKey));
+        assert receiveShock != null;
+        receiveShock.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                smsSender.sendAction(preference.getContext(), "TEST SHOCK");
+                return false;
+            }
+        });
+        Preference resetShock = findPreference(getString(R.string.resetShockKey));
+        assert resetShock != null;
+        resetShock.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                smsSender.sendAction(preference.getContext(), "RESET SHOCK");
+                return false;
+            }
+        });
+    }
+
     private void initSummary(Preference p) {
         if (p instanceof PreferenceGroup) {
             PreferenceGroup pGrp = (PreferenceGroup) p;
@@ -266,18 +310,50 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         if(p != null) {
             SharedPreferences preferences = p.getSharedPreferences();
 
+            Object value = preferences.getAll().get(key);
             if (p instanceof EditTextPreference) {
                 EditTextPreference editTextPreference = (EditTextPreference) p;
-                Object value = preferences.getAll().get(key);
                 String string = value == null ? "" : value.toString();
                 editTextPreference.setText(string);
                 if(!excludeValueAsSummary.contains(key))
                     editTextPreference.setSummary(string);
             } else if (p instanceof ListPreference) {
                 ListPreference listPref = (ListPreference) p;
-                listPref.setValueIndex(Integer.valueOf((String) preferences.getAll().get(key)));
+                listPref.setValueIndex(Integer.valueOf((String) value));
                 if(!excludeValueAsSummary.contains(key))
                     p.setSummary(listPref.getEntry());
+            } else {
+                if(!excludeValueAsSummary.contains(key)) {
+                    if(p.getKey().equals("deviceStatus_alarm")) {
+                        p.setSummary((Boolean)value ? "on" : "off");
+                    } else if(p.getKey().equals("deviceStatus_gsm")) {
+                        p.setSummary(value + "%");
+                    } else if(p.getKey().equals("deviceStatus_accu")) {
+                        p.setSummary(value + "%");
+                    } else if(p.getKey().equals("deviceStatus_area")) {
+                        p.setSummary((Boolean)value ? "on" : "off");
+                    } else if(p.getKey().equals("deviceStatus_shock")) {
+                        p.setSummary(value + "/10");
+                    } else if(p.getKey().equals("deviceStatus_volt")) {
+                        p.setSummary(value + "V");
+                    } else if(p.getKey().equals("deviceStatus_volt")) {
+                        p.setSummary((Boolean)value ? "on" : "off");
+                    } else if(p.getKey().equals("deviceStatus_in1")) {
+                        p.setSummary((Boolean)value ? "high" : "low");
+                    } else if(p.getKey().equals("deviceStatus_in2")) {
+                        p.setSummary((Boolean)value ? "high" : "low");
+                    } else if(p.getKey().equals("deviceStatus_out1")) {
+                        p.setSummary((Boolean)value ? "on" : "off");
+                    } else if(p.getKey().equals("deviceStatus_out2")) {
+                        p.setSummary((Boolean)value ? "on" : "off");
+                    } else if(value instanceof String) {
+                        p.setSummary((String)value);
+                    } else if(value instanceof Long && p.getKey().toLowerCase().contains("time")) {
+                        p.setSummary(Constants.TIME_DATE_FORMAT.format(new Date((Long)value)));
+                    } else if(value instanceof Float || value instanceof Double || value instanceof Boolean) {
+                        p.setSummary(value.toString());
+                    }
+                }
             }
         }
     }

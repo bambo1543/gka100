@@ -9,6 +9,7 @@
     <string name="timeGpsLabel">Time (GPS):</string>
     <string name="alarmLabel">Alarm:</string>
     <string name="gsmLabel">GSM:</string>
+    <string name="shockLabel">Shock:</string>
     <string name="timeLabel">Time:</string>
     <string name="clipboard">Copy</string>
     <string name="timeStatusLabel">Time (Status):</string>

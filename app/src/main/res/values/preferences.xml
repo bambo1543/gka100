@@ -117,6 +117,7 @@
 
     <string name="pref_scr_title_hardware">Hardware</string>
 
+    <string name="pref_cat_title_voltage">Voltage</string>
     <string name="minVoltageKey">minVoltage</string>
     <string name="minVoltageTitle">Voltage minimum</string>
     <string name="minVoltageDialogTitle">Voltage minimum</string>
@@ -129,5 +130,52 @@
     <string name="resetVoltageKey">resetVoltage</string>
     <string name="resetVoltageTitle">Reset</string>
     <string name="resetVoltageSummary">Reset voltage settings at GKA100</string>
+
+    <string name="pref_cat_title_shock">Shock</string>
+
+    <string name="shockKey">shock</string>
+    <string name="shockTitle">Shock</string>
+    <string name="shockDialogTitle">Set shock sensibility</string>
+    <string name="shockDialogMessage">0=off to 10=max</string>
+
+    <string name="receiveShockKey">receiveShock</string>
+    <string name="receiveShockTitle">Receive shock settings</string>
+    <string name="receiveShockSummary">Receive shock settings from GKA100</string>
+
+    <string name="resetShockKey">resetShock</string>
+    <string name="resetShockTitle">Reset shock</string>
+    <string name="resetShockSummary">Reset shock settings at GKA100</string>
+
+
+    <string name="pref_scr_title_deviceStatus">Status</string>
+
+    <string name="deviceStatusTimeKey">deviceStatus_time</string>
+    <string name="deviceStatusTimeTitle">Time:</string>
+    <string name="deviceStatusAlarmKey">deviceStatus_alarm</string>
+    <string name="deviceStatusAlarmTitle">Alarm:</string>
+    <string name="deviceStatusGsmKey">deviceStatus_gsm</string>
+    <string name="deviceStatusGsmTitle">GSM:</string>
+    <string name="deviceStatusAccuKey">deviceStatus_accu</string>
+    <string name="deviceStatusAccuTitle">Accu:</string>
+    <string name="deviceStatusAreaKey">deviceStatus_area</string>
+    <string name="deviceStatusAreaTitle">Area:</string>
+    <string name="deviceStatusShockKey">deviceStatus_shock</string>
+    <string name="deviceStatusShockTitle">Shock:</string>
+    <string name="deviceStatusVoltKey">deviceStatus_volt</string>
+    <string name="deviceStatusVoltTitle">Volt:</string>
+    <string name="deviceStatusHoldAlarmKey">deviceStatus_holdAlarm</string>
+    <string name="deviceStatusHoldAlarmTitle">Hold Alarm:</string>
+    <string name="deviceStatusIn1Key">deviceStatus_in1</string>
+    <string name="deviceStatusIn1Title">IN1</string>
+    <string name="deviceStatusIn2Key">deviceStatus_in2</string>
+    <string name="deviceStatusIn2Title">IN2</string>
+    <string name="deviceStatusOut1Key">deviceStatus_out1</string>
+    <string name="deviceStatusOut1Title">OUT1</string>
+    <string name="deviceStatusOut2Key">deviceStatus_out2</string>
+    <string name="deviceStatusOut2Title">OUT2</string>
+
+    <string name="receiveStatusKey">receiveStatus</string>
+    <string name="receiveStatusTitle">Receive status</string>
+    <string name="receiveStatusSummary">Receive status from GKA100</string>
 
 </resources>

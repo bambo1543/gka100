@@ -50,7 +50,8 @@ public class DeviceStatusService {
         index = message.indexOf("Area:") + "Area:".length();
         deviceStatus.setArea(message.substring(index, message.indexOf("Shock:")).trim().equals("on"));
 
-        //Shock
+        index = message.indexOf("Shock:") + "Shock:".length();
+        deviceStatus.setShock(message.substring(index, message.indexOf("/10")).trim());
 
         index = message.indexOf("Volt.:") + "Volt.:".length();
         deviceStatus.setVolt(Float.valueOf(StringUtils.cutEnd(message.substring(index, message.indexOf("HoldAlarm:")).trim(), 1)));
@@ -76,10 +77,18 @@ public class DeviceStatusService {
     private void saveResponse(SharedPreferences preferences, DeviceStatus deviceStatus) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("deviceStatus_alarm", deviceStatus.isAlarm())
-        .putInt("deviceStatus_accu", deviceStatus.getAccu())
-        .putInt("deviceStatus_gsm", deviceStatus.getGsm())
-        .putLong("deviceStatus_time", deviceStatus.getTime().getTime())
+                .putLong("deviceStatus_time", deviceStatus.getTime().getTime())
+                .putInt("deviceStatus_gsm", deviceStatus.getGsm())
+                .putInt("deviceStatus_accu", deviceStatus.getAccu())
+                .putBoolean("deviceStatus_area", deviceStatus.isArea())
+                .putString("shock", deviceStatus.getShock())
+                .putString("deviceStatus_shock", deviceStatus.getShock())
+                .putFloat("deviceStatus_volt", deviceStatus.getVolt())
+                .putBoolean("deviceStatus_holdAlarm", deviceStatus.isHoldAlarm())
+                .putBoolean("deviceStatus_in1", deviceStatus.isIn1())
+                .putBoolean("deviceStatus_in2", deviceStatus.isIn2())
+                .putBoolean("deviceStatus_out1", deviceStatus.isOut1())
+                .putBoolean("deviceStatus_out2", deviceStatus.isOut2())
                 .apply();
     }
-
 }
