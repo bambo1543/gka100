@@ -5,15 +5,18 @@ import android.content.SharedPreferences;
 /**
  * @author <a href="mailto:andreas.bga@gmail.com">Andreas Baumgartner</a> on 04.04.15.
  */
-public class AudioManager {
+public class AudioManager implements IManager {
 
-    private static AudioManager instance = new AudioManager();
+    public static AudioManager instance;
 
-    private AudioManager() {
+    static {
+        instance = new AudioManager();
     }
 
-    public static AudioManager getInstance(){
-        return instance;
+    private AudioManager() {}
+
+    public boolean isResponsibleForMessage(String message) {
+        return message.contains("Speaker:");
     }
 
     public void handleResponse(String message, SharedPreferences preferences) {

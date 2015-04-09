@@ -15,7 +15,7 @@ import it.bambo.gka100.model.DeviceStatus;
  */
 public class DeviceStatusManagerTest {
 
-    private DeviceStatusManager service = DeviceStatusManager.getInstance();
+    private DeviceStatusManager manager = DeviceStatusManager.instance;
 
     @Test
     public void testParseResponse() throws ParseException {
@@ -32,7 +32,7 @@ public class DeviceStatusManagerTest {
                 "IN2: low\n" +
                 "OUT1: off\n" +
                 "OUT2: off\n";
-        DeviceStatus response = service.parseResponse(message);
+        DeviceStatus response = manager.parseResponse(message);
 
         Assert.assertEquals(Constants.SHORT_TIME_DATE_FORMAT.parse("21:31 06.04.15"), response.getTime());
         Assert.assertEquals(true, response.isAlarm());

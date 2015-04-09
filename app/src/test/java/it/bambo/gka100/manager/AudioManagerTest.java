@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class AudioManagerTest {
 
-    private AudioManager service = AudioManager.getInstance();
+    private AudioManager manager = AudioManager.instance;
 
     @Test
     public void testParseResponse() {
@@ -22,7 +22,7 @@ public class AudioManagerTest {
                 "Ring volume: 7\n" +
                 "Alarm volume: 7\n" +
                 "Confirm. volume: 5\n";
-        String[] response = service.parseResponse(message);
+        String[] response = manager.parseResponse(message);
         Assert.assertEquals(6, response.length);
         Assert.assertEquals("6", response[0]);
         Assert.assertEquals("6", response[1]);

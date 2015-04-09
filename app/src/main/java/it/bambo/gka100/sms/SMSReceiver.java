@@ -10,11 +10,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.text.ParseException;
+import java.util.Arrays;
+import java.util.List;
 
 import it.bambo.gka100.manager.AlarmManager;
 import it.bambo.gka100.manager.AudioManager;
 import it.bambo.gka100.manager.DeviceStatusManager;
 import it.bambo.gka100.manager.GpsManager;
+import it.bambo.gka100.manager.IManager;
 import it.bambo.gka100.manager.PhoneBookManager;
 import it.bambo.gka100.manager.VoltageManager;
 
@@ -23,12 +26,8 @@ import it.bambo.gka100.manager.VoltageManager;
  */
 public class SMSReceiver extends BroadcastReceiver {
 
-    private AudioManager audioManager = AudioManager.getInstance();
-    private GpsManager gpsManager = GpsManager.getInstance();
-    private PhoneBookManager phoneBookManager = PhoneBookManager.getInstance();
-    private DeviceStatusManager deviceStatusManager = DeviceStatusManager.getInstance();
-    private VoltageManager voltageManager = VoltageManager.getInstance();
-    private AlarmManager alarmManager = AlarmManager.getInstance();
+    private List<IManager> managers = Arrays.asList(AudioManager.instance, GpsManager.instance, PhoneBookManager.instance,
+            DeviceStatusManager.instance, VoltageManager.instance, AlarmManager.instance);
 
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
@@ -44,22 +43,14 @@ public class SMSReceiver extends BroadcastReceiver {
 
                     String message = smsMessage.getDisplayMessageBody();
                     Log.i("SMSReceiver", message);
-                    if(message.contains("Speaker")) {
-                        audioManager.handleResponse(message, preferences);
-                    } else if(message.contains("Latitude:") && message.contains("Longitude:") && message.contains("Speed:")) {
-                        try {
-                            gpsManager.handleResponse(message, preferences);
-                        } catch (ParseException e) {
-                            Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_LONG);
+                    for (IManager manager : managers) {
+                        if(manager.isResponsibleForMessage(message)) {
+                            try {
+                                manager.handleResponse(message, preferences);
+                            } catch (ParseException e) {
+                                Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_LONG);
+                            }
                         }
-                    } else if(message.contains("SMS1") && message.contains("SMS2") && message.contains("SMS3")) {
-                        phoneBookManager.handleResponse(message, preferences);
-                    } else if(message.contains("ALARM:")) {
-                        alarmManager.handleResponse(message, preferences);
-                    } else if(message.contains("Alarm:") && message.contains("GSM") && message.contains("Accu")) {
-                        deviceStatusManager.handleResponse(message, preferences);
-                    } else if(message.contains("Min. voltage:")) {
-                        voltageManager.handleResponse(message, preferences);
                     }
                 }
             }

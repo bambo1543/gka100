@@ -14,21 +14,23 @@ import it.bambo.gka100.utils.StringUtils;
 /**
  * Created by andreas on 05.04.2015.
  */
-public class GpsManager {
+public class GpsManager implements IManager {
 
-    private static GpsManager instance = new GpsManager();
+    public static GpsManager instance;
 
-    private GpsManager() {
+    static {
+        instance = new GpsManager();
     }
 
-    public static GpsManager getInstance(){
-        return instance;
+    private GpsManager() {}
+
+    public boolean isResponsibleForMessage(String message) {
+        return message.contains("Latitude:") && message.contains("Longitude:") && message.contains("Speed:");
     }
 
-    public GpsInfo handleResponse(String message, SharedPreferences preferences) throws ParseException {
+    public void handleResponse(String message, SharedPreferences preferences) throws ParseException {
         GpsInfo gpsInfo = parseResponse(message);
         saveResponse(preferences, gpsInfo);
-        return gpsInfo;
     }
 
     GpsInfo parseResponse(String message) {

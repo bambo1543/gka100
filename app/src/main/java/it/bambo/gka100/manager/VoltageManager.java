@@ -7,15 +7,18 @@ import it.bambo.gka100.utils.StringUtils;
 /**
  * @author <a href="mailto:andreas.bga@gmail.com">Andreas Baumgartner</a> on 04.04.15.
  */
-public class VoltageManager {
+public class VoltageManager implements IManager {
 
-    private static VoltageManager instance = new VoltageManager();
+    public static VoltageManager instance;
 
-    private VoltageManager() {
+    static {
+        instance = new VoltageManager();
     }
 
-    public static VoltageManager getInstance(){
-        return instance;
+    private VoltageManager() {}
+
+    public boolean isResponsibleForMessage(String message) {
+        return message.contains("Min. voltage:");
     }
 
     public void handleResponse(String message, SharedPreferences preferences) {

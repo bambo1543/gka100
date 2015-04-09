@@ -9,15 +9,18 @@ import it.bambo.gka100.utils.StringUtils;
 /**
  * @author <a href="mailto:andreas.bga@gmail.com">Andreas Baumgartner</a> on 04.04.15.
  */
-public class AlarmManager {
+public class AlarmManager implements IManager {
 
-    private static AlarmManager instance = new AlarmManager();
+    public static AlarmManager instance = new AlarmManager();
 
-    private AlarmManager() {
+    static {
+        instance = new AlarmManager();
     }
 
-    public static AlarmManager getInstance(){
-        return instance;
+    private AlarmManager() {}
+
+    public boolean isResponsibleForMessage(String message) {
+        return message.contains("ALARM:");
     }
 
     public void handleResponse(String message, SharedPreferences preferences) {

@@ -8,16 +8,19 @@ import it.bambo.gka100.model.PhoneBook;
 /**
  * Created by andreas on 05.04.2015.
  */
-public class PhoneBookManager {
+public class PhoneBookManager implements IManager {
 
-    private static PhoneBookManager instance = new PhoneBookManager();
+    public static PhoneBookManager instance;
     private static String NO_DESTINATION = "No destination";
 
-    private PhoneBookManager() {
+    static {
+        instance = new PhoneBookManager();
     }
 
-    public static PhoneBookManager getInstance(){
-        return instance;
+    private PhoneBookManager() {}
+
+    public boolean isResponsibleForMessage(String message) {
+        return message.contains("SMS1") && message.contains("SMS2") && message.contains("SMS3");
     }
 
     public void handleResponse(String message, SharedPreferences preferences) {

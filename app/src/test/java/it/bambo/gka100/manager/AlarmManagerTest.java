@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class AlarmManagerTest {
 
-    private AlarmManager service = AlarmManager.getInstance();
+    private AlarmManager manager = AlarmManager.instance;
 
     @Test
     public void testParseResponse() {
@@ -22,7 +22,7 @@ public class AlarmManagerTest {
                 "47.856105N\n" +
                 "Long:\n" +
                 "012.193365E";
-        String[] response = service.parseResponse(message);
+        String[] response = manager.parseResponse(message);
         Assert.assertEquals(2, response.length);
         Assert.assertEquals("47.856105", response[0]);
         Assert.assertEquals("012.193365", response[1]);

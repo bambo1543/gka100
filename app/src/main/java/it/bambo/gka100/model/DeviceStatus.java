@@ -30,8 +30,6 @@ public class DeviceStatus {
     // off/on
     private boolean out2;
 
-    private Date alarmReleased;
-
     public String getName() {
         return name;
     }
@@ -136,11 +134,4 @@ public class DeviceStatus {
         this.out2 = out2;
     }
 
-    public Date getAlarmReleased() {
-        return alarmReleased;
-    }
-
-    public void setAlarmReleased(Date alarmReleased) {
-        this.alarmReleased = alarmReleased;
-    }
 }

@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class VoltageManagerTest {
 
-    private VoltageManager service = VoltageManager.getInstance();
+    private VoltageManager manager = VoltageManager.instance;
 
     @Test
     public void testParseResponse() {
@@ -19,7 +19,7 @@ public class VoltageManagerTest {
                 "Min. voltage:  8.0V\n" +
                 "HYS. VOLT: 0.1V\n" +
                 "P+: low\n";
-        String[] response = service.parseResponse(message);
+        String[] response = manager.parseResponse(message);
         Assert.assertEquals(1, response.length);
         Assert.assertEquals("8.0", response[0]);
     }
@@ -31,7 +31,7 @@ public class VoltageManagerTest {
                 "Min. voltage:  off\n" +
                 "HYS. VOLT: 0.1V\n" +
                 "P+: low\n";
-        String[] response = service.parseResponse(message);
+        String[] response = manager.parseResponse(message);
         Assert.assertEquals(1, response.length);
         Assert.assertEquals("off", response[0]);
     }

@@ -18,7 +18,7 @@ import it.bambo.gka100.model.GpsInfo;
  */
 public class GpsManagerTest {
 
-    private GpsManager service = GpsManager.getInstance();
+    private GpsManager manager = GpsManager.instance;
 
     @Test
     public void testParseResponse() throws ParseException {
@@ -31,7 +31,7 @@ public class GpsManagerTest {
                 "012.193315E\n" +
                 "Altitude: 398.2m\n" +
                 "Sat. in used: 05";
-        GpsInfo response = service.parseResponse(message);
+        GpsInfo response = manager.parseResponse(message);
 
         String date = Constants.DATE_FORMAT.format(new Date());
         Assert.assertEquals(Constants.TIME_DATE_FORMAT.parse("09:44:23" + " " + date), response.getTime());

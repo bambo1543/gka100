@@ -105,7 +105,8 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_update_position:
                 if (Env.isMock) {
                     try {
-                        GpsInfo gpsInfo = GpsManager.getInstance().handleResponse(Env.getNextTestGpsResponse(), getSharedPreferences());
+                        GpsManager.instance.handleResponse(Env.getNextTestGpsResponse(), getSharedPreferences());
+                        GpsInfo gpsInfo = getGpsInfoFromPreferences(getSharedPreferences());
                         updateMarker(gpsInfo);
                     } catch (ParseException e) {
                         e.printStackTrace();

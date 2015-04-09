@@ -14,7 +14,7 @@ import it.bambo.gka100.model.PhoneBook;
  */
 public class PhoneBookManagerTest {
 
-    private PhoneBookManager service = PhoneBookManager.getInstance();
+    private PhoneBookManager manager = PhoneBookManager.instance;
 
     @Test
     public void testParseResponse() throws ParseException {
@@ -31,7 +31,7 @@ public class PhoneBookManagerTest {
                 "No destination\n" +
                 "SMS6\n" +
                 "No destination\n";
-        PhoneBook response = service.parseResponse(message);
+        PhoneBook response = manager.parseResponse(message);
 
         Assert.assertEquals("Pajero", response.getName());
         Assert.assertEquals(6, response.getNumbers().size());

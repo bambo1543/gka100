@@ -11,15 +11,18 @@ import it.bambo.gka100.utils.StringUtils;
 /**
  * @author <a href="mailto:andreas.bga@gmail.com">Andreas Baumgartner</a> on 04.04.15.
  */
-public class DeviceStatusManager {
+public class DeviceStatusManager implements IManager {
 
-    private static DeviceStatusManager instance = new DeviceStatusManager();
+    public static DeviceStatusManager instance;
 
-    private DeviceStatusManager() {
+    static {
+        instance = new DeviceStatusManager();
     }
 
-    public static DeviceStatusManager getInstance(){
-        return instance;
+    private DeviceStatusManager() {}
+
+    public boolean isResponsibleForMessage(String message) {
+        return message.contains("Alarm:") && message.contains("GSM") && message.contains("Accu");
     }
 
     public void handleResponse(String message, SharedPreferences preferences) {
