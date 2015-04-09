@@ -89,6 +89,10 @@ public class DeviceStatusService {
                 .putBoolean("deviceStatus_in2", deviceStatus.isIn2())
                 .putBoolean("deviceStatus_out1", deviceStatus.isOut1())
                 .putBoolean("deviceStatus_out2", deviceStatus.isOut2())
+                .putBoolean("device_changed_flag", true)
                 .apply();
+        if(!deviceStatus.isAlarm()) {
+            editor.remove("alarm_released").apply();
+        }
     }
 }

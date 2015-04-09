@@ -21,6 +21,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -55,6 +57,8 @@ public class MainActivity extends ActionBarActivity {
     private Map<Marker, GpsInfo> markerToGpsInfoMap = new HashMap<>();
     private HashMap<String, List<GpsInfo>> nameToGpsInfoMap = new HashMap<>();
 
+    private UpdateMarkerTask updateMarkerTask;
+
     private boolean rectangleMode = false;
     private LatLng rectangle1 = null;
     private LatLng rectangle2 = null;
@@ -77,36 +81,10 @@ public class MainActivity extends ActionBarActivity {
             updateMarker(gpsInfo);
         }
 
-        AsyncTask<Void, GpsInfo, Void> updateMarkerTask = new AsyncTask<Void, GpsInfo, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                while (true) {
-                    SharedPreferences p = getSharedPreferences();
-                    if (p.contains("gps_changed_flag")) {
-                        GpsInfo gpsInfo = getGpsInfoFromPreferences(p);
-                        publishProgress(gpsInfo);
-                        p.edit().remove("gps_changed_flag").apply();
-                    }
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            protected void onProgressUpdate(GpsInfo... values) {
-                super.onProgressUpdate(values);
-                if(values.length == 1) {
-                    updateMarker(values[0]);
-                }
-            }
-        };
-        updateMarkerTask.execute();
+        updateMarkerTask = new UpdateMarkerTask(this);
     }
 
-    private GpsInfo getGpsInfoFromPreferences(SharedPreferences p) {
+    public GpsInfo getGpsInfoFromPreferences(SharedPreferences p) {
         return new GpsInfo(p.getString("gps_name", ""), new Date(p.getLong("gps_time", 0)),
                                     p.getInt("gps_speed", 0), p.getFloat("gps_lat", 0), p.getFloat("gps_lng", 0), p.getFloat("gps_alt", 0), p.getInt("gps_sat_count", 0));
     }
@@ -244,10 +222,22 @@ public class MainActivity extends ActionBarActivity {
                 markerToGpsInfoMap.remove(marker);
                 marker.remove();
             }
+            boolean alarm = getSharedPreferences().getBoolean("deviceStatus_alarm", false);
+            boolean alarmReleased = getSharedPreferences().contains("alarm_released");
+            BitmapDescriptor icon;
+            if (alarmReleased) {
+                icon = BitmapDescriptorFactory.fromResource(R.drawable.yellow_car);
+            } else if (alarm) {
+                icon = BitmapDescriptorFactory.fromResource(R.drawable.green_car);
+            } else {
+                icon = BitmapDescriptorFactory.fromResource(R.drawable.red_car);
+            }
+
             marker = googleMap.addMarker(new MarkerOptions()
                             .position(gpsInfo.getLatLng())
                             .title(gpsInfo.getName())
                             .snippet(gpsInfo.getSnippet())
+                            .icon(icon)
             );
 
             nameToMarkerMap.put(gpsInfo.getName(), marker);
@@ -267,28 +257,55 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    @Override
-    protected void onPause() {
-        Log.i("LIFECYCLE", "onPause");
-        super.onPause();
+    private void startUpdateMarkerTask() {
+        if(updateMarkerTask == null || updateMarkerTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
+            updateMarkerTask = new UpdateMarkerTask(this);
+        }
+        if(!updateMarkerTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+            updateMarkerTask.execute();
+        }
+    }
+
+    private void stopUpdateMarkerTask() {
+        if(updateMarkerTask != null) {
+            updateMarkerTask.setUpdateMarkerTaskRunning(false);
+            updateMarkerTask = null;
+        }
     }
 
     @Override
-    protected void onStop() {
-        Log.i("LIFECYCLE", "onStop");
-        super.onStop();
+    protected void onStart() {
+        Log.i("LIFECYCLE", "onStart");
+        super.onStart();
+        startUpdateMarkerTask();
     }
 
     @Override
     protected void onResume() {
         Log.i("LIFECYCLE", "onResume");
         super.onResume();
+        startUpdateMarkerTask();
     }
 
     @Override
     protected void onRestart() {
         Log.i("LIFECYCLE", "onRestart");
         super.onRestart();
+        startUpdateMarkerTask();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.i("LIFECYCLE", "onPause");
+        super.onPause();
+        stopUpdateMarkerTask();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.i("LIFECYCLE", "onStop");
+        super.onStop();
+        stopUpdateMarkerTask();
     }
 
     @Override
@@ -422,6 +439,13 @@ public class MainActivity extends ActionBarActivity {
                 timeStatusView.setText("unknown");
             }
 
+            final TextView alarmReleasedView = (TextView) view.findViewById(R.id.alarmReleasedValue);
+            if(preferences.contains("alarm_released")) {
+                alarmReleasedView.setText(Constants.TIME_DATE_FORMAT.format(new Date(preferences.getLong("alarm_released", 0))));
+            } else {
+                alarmReleasedView.setText("no");
+            }
+
 //            final Button clipboardButton = (Button) view.findViewById(R.id.clipboardButton);
 //            clipboardButton.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -445,7 +469,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    private SharedPreferences getSharedPreferences() {
+    public SharedPreferences getSharedPreferences() {
         return getApplicationContext().getSharedPreferences("it.bambo.gka100_preferences", Context.MODE_PRIVATE);
     }
 }

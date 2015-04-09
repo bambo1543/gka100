@@ -150,21 +150,21 @@
     <string name="pref_scr_title_deviceStatus">Status</string>
 
     <string name="deviceStatusTimeKey">deviceStatus_time</string>
-    <string name="deviceStatusTimeTitle">Time:</string>
+    <string name="deviceStatusTimeTitle">Time</string>
     <string name="deviceStatusAlarmKey">deviceStatus_alarm</string>
-    <string name="deviceStatusAlarmTitle">Alarm:</string>
+    <string name="deviceStatusAlarmTitle">Alarm</string>
     <string name="deviceStatusGsmKey">deviceStatus_gsm</string>
-    <string name="deviceStatusGsmTitle">GSM:</string>
+    <string name="deviceStatusGsmTitle">GSM</string>
     <string name="deviceStatusAccuKey">deviceStatus_accu</string>
-    <string name="deviceStatusAccuTitle">Accu:</string>
+    <string name="deviceStatusAccuTitle">Accu</string>
     <string name="deviceStatusAreaKey">deviceStatus_area</string>
-    <string name="deviceStatusAreaTitle">Area:</string>
+    <string name="deviceStatusAreaTitle">Area</string>
     <string name="deviceStatusShockKey">deviceStatus_shock</string>
-    <string name="deviceStatusShockTitle">Shock:</string>
+    <string name="deviceStatusShockTitle">Shock</string>
     <string name="deviceStatusVoltKey">deviceStatus_volt</string>
-    <string name="deviceStatusVoltTitle">Volt:</string>
+    <string name="deviceStatusVoltTitle">Volt</string>
     <string name="deviceStatusHoldAlarmKey">deviceStatus_holdAlarm</string>
-    <string name="deviceStatusHoldAlarmTitle">Hold Alarm:</string>
+    <string name="deviceStatusHoldAlarmTitle">Hold Alarm</string>
     <string name="deviceStatusIn1Key">deviceStatus_in1</string>
     <string name="deviceStatusIn1Title">IN1</string>
     <string name="deviceStatusIn2Key">deviceStatus_in2</string>
@@ -173,6 +173,8 @@
     <string name="deviceStatusOut1Title">OUT1</string>
     <string name="deviceStatusOut2Key">deviceStatus_out2</string>
     <string name="deviceStatusOut2Title">OUT2</string>
+    <string name="deviceStatusAlarmReleasedKey">deviceStatus_alarmReleased</string>
+    <string name="deviceStatusAlarmReleasedTitle">Alarm released</string>
 
     <string name="receiveStatusKey">receiveStatus</string>
     <string name="receiveStatusTitle">Receive status</string>

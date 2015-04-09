@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 
+import it.bambo.gka100.service.AlarmService;
 import it.bambo.gka100.service.AudioService;
 import it.bambo.gka100.service.DeviceStatusService;
 import it.bambo.gka100.service.GpsService;
@@ -27,6 +28,7 @@ public class SMSReceiver extends BroadcastReceiver {
     private PhoneBookService phoneBookService = PhoneBookService.getInstance();
     private DeviceStatusService deviceStatusService = DeviceStatusService.getInstance();
     private VoltageService voltageService = VoltageService.getInstance();
+    private AlarmService alarmService = AlarmService.getInstance();
 
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
@@ -52,13 +54,23 @@ public class SMSReceiver extends BroadcastReceiver {
                         }
                     } else if(message.contains("SMS1") && message.contains("SMS2") && message.contains("SMS3")) {
                         phoneBookService.handleResponse(message, preferences);
-                    } else if(message.contains("Alarm:")) {
+                    } else if(message.contains("ALARM:")) {
+                        alarmService.handleResponse(message, preferences);
+                    } else if(message.contains("Alarm:") && message.contains("GSM") && message.contains("Accu")) {
                         deviceStatusService.handleResponse(message, preferences);
                     } else if(message.contains("Min. voltage:")) {
                         voltageService.handleResponse(message, preferences);
                     }
                 }
             }
+//            if(preferences.contains("alarm_released")) {
+//                AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//                Intent pintent = new Intent(context, AlarmReceiver.class);
+//                PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, pintent, 0);
+//
+//                alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() +
+//                                1000, alarmIntent);
+//            }
         }
     }
 
@@ -67,5 +79,19 @@ public class SMSReceiver extends BroadcastReceiver {
         toast += "\nMessage: " + smsMessage.getDisplayMessageBody();
         Toast.makeText(context, toast, Toast.LENGTH_LONG).show();
     }
+
+//    private class AlarmReceiver extends Service {
+//
+//        @Override
+//        public IBinder onBind(Intent intent) {
+//            return null;
+//        }
+//
+//        @Override
+//        public int onStartCommand(Intent intent, int flags, int startId) {
+//            return super.onStartCommand(intent, flags, startId);
+//
+//        }
+//    }
 
 }

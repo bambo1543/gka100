@@ -190,6 +190,25 @@
             android:layout_column="1" />
     </TableRow>
 
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/alarmReleasedLabel"
+            android:text="@string/alarmReleasedLabel"
+            android:layout_column="0"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/alarmReleasedValue"
+            android:layout_column="1" />
+    </TableRow>
+
     <!--<TableRow-->
         <!--android:layout_width="fill_parent"-->
         <!--android:layout_height="fill_parent">-->

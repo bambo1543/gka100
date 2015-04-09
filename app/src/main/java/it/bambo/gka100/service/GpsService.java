@@ -72,7 +72,7 @@ public class GpsService {
         .putFloat("gps_lng", Double.valueOf(gpsInfo.getLatLng().longitude).floatValue())
         .putFloat("gps_alt", gpsInfo.getAlt())
         .putInt("gps_sat_count", gpsInfo.getSatelliteCount())
-        .putBoolean("gps_changed_flag", true)
+        .putBoolean("device_changed_flag", true)
                 .apply();
     }
 }

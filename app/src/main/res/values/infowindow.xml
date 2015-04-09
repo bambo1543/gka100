@@ -13,5 +13,6 @@
     <string name="timeLabel">Time:</string>
     <string name="clipboard">Copy</string>
     <string name="timeStatusLabel">Time (Status):</string>
+    <string name="alarmReleasedLabel">Alarm released:</string>
 
 </resources>

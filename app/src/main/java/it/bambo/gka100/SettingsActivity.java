@@ -346,6 +346,8 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                         p.setSummary((Boolean)value ? "on" : "off");
                     } else if(p.getKey().equals("deviceStatus_out2")) {
                         p.setSummary((Boolean)value ? "on" : "off");
+                    } else if(p.getKey().equals("deviceStatus_alarmReleased")) {
+                        p.setSummary(value == null ? "no" : Constants.TIME_DATE_FORMAT.format(new Date((Long)value)));
                     } else if(value instanceof String) {
                         p.setSummary((String)value);
                     } else if(value instanceof Long && p.getKey().toLowerCase().contains("time")) {

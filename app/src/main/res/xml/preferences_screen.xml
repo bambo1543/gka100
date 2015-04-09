@@ -326,7 +326,11 @@
             android:key="@string/deviceStatusOut2Key"
             android:title="@string/deviceStatusOut2Title"
             />
-
+        <Preference
+            android:id="@+id/deviceStatusAlarmReleased"
+            android:key="@string/deviceStatusAlarmReleasedKey"
+            android:title="@string/deviceStatusAlarmReleasedTitle"
+            />
 
         <PreferenceCategory android:title="@string/pref_cat_title_actions">
             <Preference
