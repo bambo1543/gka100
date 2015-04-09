@@ -38,9 +38,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import it.bambo.gka100.manager.GpsManager;
 import it.bambo.gka100.model.GpsInfo;
 import it.bambo.gka100.model.MapViewCamera;
-import it.bambo.gka100.service.GpsService;
 import it.bambo.gka100.sms.SMSSender;
 
 
@@ -105,7 +105,7 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_update_position:
                 if (Env.isMock) {
                     try {
-                        GpsInfo gpsInfo = GpsService.getInstance().handleResponse(Env.getNextTestGpsResponse(), getSharedPreferences());
+                        GpsInfo gpsInfo = GpsManager.getInstance().handleResponse(Env.getNextTestGpsResponse(), getSharedPreferences());
                         updateMarker(gpsInfo);
                     } catch (ParseException e) {
                         e.printStackTrace();

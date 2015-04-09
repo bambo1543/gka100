@@ -1,4 +1,4 @@
-package it.bambo.gka100.service;
+package it.bambo.gka100.manager;
 
 
 import com.google.android.gms.maps.model.LatLng;
@@ -16,9 +16,9 @@ import it.bambo.gka100.model.GpsInfo;
 /**
  * @author <a href="mailto:andreas.bga@gmail.com">Andreas Baumgartner</a> on 04.04.15.
  */
-public class GpsServiceTest {
+public class GpsManagerTest {
 
-    private GpsService service = GpsService.getInstance();
+    private GpsManager service = GpsManager.getInstance();
 
     @Test
     public void testParseResponse() throws ParseException {

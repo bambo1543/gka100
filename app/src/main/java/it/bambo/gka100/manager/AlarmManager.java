@@ -1,4 +1,4 @@
-package it.bambo.gka100.service;
+package it.bambo.gka100.manager;
 
 import android.content.SharedPreferences;
 
@@ -9,14 +9,14 @@ import it.bambo.gka100.utils.StringUtils;
 /**
  * @author <a href="mailto:andreas.bga@gmail.com">Andreas Baumgartner</a> on 04.04.15.
  */
-public class AlarmService {
+public class AlarmManager {
 
-    private static AlarmService instance = new AlarmService();
+    private static AlarmManager instance = new AlarmManager();
 
-    private AlarmService() {
+    private AlarmManager() {
     }
 
-    public static AlarmService getInstance(){
+    public static AlarmManager getInstance(){
         return instance;
     }
 

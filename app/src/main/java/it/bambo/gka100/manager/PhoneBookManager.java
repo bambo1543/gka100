@@ -1,4 +1,4 @@
-package it.bambo.gka100.service;
+package it.bambo.gka100.manager;
 
 import android.content.SharedPreferences;
 
@@ -8,15 +8,15 @@ import it.bambo.gka100.model.PhoneBook;
 /**
  * Created by andreas on 05.04.2015.
  */
-public class PhoneBookService {
+public class PhoneBookManager {
 
-    private static PhoneBookService instance = new PhoneBookService();
+    private static PhoneBookManager instance = new PhoneBookManager();
     private static String NO_DESTINATION = "No destination";
 
-    private PhoneBookService() {
+    private PhoneBookManager() {
     }
 
-    public static PhoneBookService getInstance(){
+    public static PhoneBookManager getInstance(){
         return instance;
     }
 

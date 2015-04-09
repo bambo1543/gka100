@@ -1,18 +1,18 @@
-package it.bambo.gka100.service;
+package it.bambo.gka100.manager;
 
 import android.content.SharedPreferences;
 
 /**
  * @author <a href="mailto:andreas.bga@gmail.com">Andreas Baumgartner</a> on 04.04.15.
  */
-public class AudioService {
+public class AudioManager {
 
-    private static AudioService instance = new AudioService();
+    private static AudioManager instance = new AudioManager();
 
-    private AudioService() {
+    private AudioManager() {
     }
 
-    public static AudioService getInstance(){
+    public static AudioManager getInstance(){
         return instance;
     }
 

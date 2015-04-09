@@ -11,24 +11,24 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 
-import it.bambo.gka100.service.AlarmService;
-import it.bambo.gka100.service.AudioService;
-import it.bambo.gka100.service.DeviceStatusService;
-import it.bambo.gka100.service.GpsService;
-import it.bambo.gka100.service.PhoneBookService;
-import it.bambo.gka100.service.VoltageService;
+import it.bambo.gka100.manager.AlarmManager;
+import it.bambo.gka100.manager.AudioManager;
+import it.bambo.gka100.manager.DeviceStatusManager;
+import it.bambo.gka100.manager.GpsManager;
+import it.bambo.gka100.manager.PhoneBookManager;
+import it.bambo.gka100.manager.VoltageManager;
 
 /**
  * Created by andreas on 23.03.14.
  */
 public class SMSReceiver extends BroadcastReceiver {
 
-    private AudioService audioService = AudioService.getInstance();
-    private GpsService gpsService = GpsService.getInstance();
-    private PhoneBookService phoneBookService = PhoneBookService.getInstance();
-    private DeviceStatusService deviceStatusService = DeviceStatusService.getInstance();
-    private VoltageService voltageService = VoltageService.getInstance();
-    private AlarmService alarmService = AlarmService.getInstance();
+    private AudioManager audioManager = AudioManager.getInstance();
+    private GpsManager gpsManager = GpsManager.getInstance();
+    private PhoneBookManager phoneBookManager = PhoneBookManager.getInstance();
+    private DeviceStatusManager deviceStatusManager = DeviceStatusManager.getInstance();
+    private VoltageManager voltageManager = VoltageManager.getInstance();
+    private AlarmManager alarmManager = AlarmManager.getInstance();
 
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
@@ -45,21 +45,21 @@ public class SMSReceiver extends BroadcastReceiver {
                     String message = smsMessage.getDisplayMessageBody();
                     Log.i("SMSReceiver", message);
                     if(message.contains("Speaker")) {
-                        audioService.handleResponse(message, preferences);
+                        audioManager.handleResponse(message, preferences);
                     } else if(message.contains("Latitude:") && message.contains("Longitude:") && message.contains("Speed:")) {
                         try {
-                            gpsService.handleResponse(message, preferences);
+                            gpsManager.handleResponse(message, preferences);
                         } catch (ParseException e) {
                             Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_LONG);
                         }
                     } else if(message.contains("SMS1") && message.contains("SMS2") && message.contains("SMS3")) {
-                        phoneBookService.handleResponse(message, preferences);
+                        phoneBookManager.handleResponse(message, preferences);
                     } else if(message.contains("ALARM:")) {
-                        alarmService.handleResponse(message, preferences);
+                        alarmManager.handleResponse(message, preferences);
                     } else if(message.contains("Alarm:") && message.contains("GSM") && message.contains("Accu")) {
-                        deviceStatusService.handleResponse(message, preferences);
+                        deviceStatusManager.handleResponse(message, preferences);
                     } else if(message.contains("Min. voltage:")) {
-                        voltageService.handleResponse(message, preferences);
+                        voltageManager.handleResponse(message, preferences);
                     }
                 }
             }

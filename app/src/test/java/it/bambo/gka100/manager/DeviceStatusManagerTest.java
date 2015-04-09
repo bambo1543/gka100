@@ -1,4 +1,4 @@
-package it.bambo.gka100.service;
+package it.bambo.gka100.manager;
 
 
 import junit.framework.Assert;
@@ -13,9 +13,9 @@ import it.bambo.gka100.model.DeviceStatus;
 /**
  * @author <a href="mailto:andreas.bga@gmail.com">Andreas Baumgartner</a> on 04.04.15.
  */
-public class DeviceStatusServiceTest {
+public class DeviceStatusManagerTest {
 
-    private DeviceStatusService service = DeviceStatusService.getInstance();
+    private DeviceStatusManager service = DeviceStatusManager.getInstance();
 
     @Test
     public void testParseResponse() throws ParseException {

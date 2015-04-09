@@ -1,4 +1,4 @@
-package it.bambo.gka100.service;
+package it.bambo.gka100.manager;
 
 
 import junit.framework.Assert;
@@ -8,9 +8,9 @@ import org.junit.Test;
 /**
  * @author <a href="mailto:andreas.bga@gmail.com">Andreas Baumgartner</a> on 04.04.15.
  */
-public class AudioServiceTest {
+public class AudioManagerTest {
 
-    private AudioService service = AudioService.getInstance();
+    private AudioManager service = AudioManager.getInstance();
 
     @Test
     public void testParseResponse() {

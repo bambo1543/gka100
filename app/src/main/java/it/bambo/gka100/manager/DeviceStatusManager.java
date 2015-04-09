@@ -1,4 +1,4 @@
-package it.bambo.gka100.service;
+package it.bambo.gka100.manager;
 
 import android.content.SharedPreferences;
 
@@ -11,14 +11,14 @@ import it.bambo.gka100.utils.StringUtils;
 /**
  * @author <a href="mailto:andreas.bga@gmail.com">Andreas Baumgartner</a> on 04.04.15.
  */
-public class DeviceStatusService {
+public class DeviceStatusManager {
 
-    private static DeviceStatusService instance = new DeviceStatusService();
+    private static DeviceStatusManager instance = new DeviceStatusManager();
 
-    private DeviceStatusService() {
+    private DeviceStatusManager() {
     }
 
-    public static DeviceStatusService getInstance(){
+    public static DeviceStatusManager getInstance(){
         return instance;
     }
 

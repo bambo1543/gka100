@@ -1,4 +1,4 @@
-package it.bambo.gka100.service;
+package it.bambo.gka100.manager;
 
 
 import junit.framework.Assert;
@@ -8,9 +8,9 @@ import org.junit.Test;
 /**
  * @author <a href="mailto:andreas.bga@gmail.com">Andreas Baumgartner</a> on 04.04.15.
  */
-public class VoltageServiceTest {
+public class VoltageManagerTest {
 
-    private VoltageService service = VoltageService.getInstance();
+    private VoltageManager service = VoltageManager.getInstance();
 
     @Test
     public void testParseResponse() {

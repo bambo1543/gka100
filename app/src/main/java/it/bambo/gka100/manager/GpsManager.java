@@ -1,4 +1,4 @@
-package it.bambo.gka100.service;
+package it.bambo.gka100.manager;
 
 import android.content.SharedPreferences;
 
@@ -14,14 +14,14 @@ import it.bambo.gka100.utils.StringUtils;
 /**
  * Created by andreas on 05.04.2015.
  */
-public class GpsService {
+public class GpsManager {
 
-    private static GpsService instance = new GpsService();
+    private static GpsManager instance = new GpsManager();
 
-    private GpsService() {
+    private GpsManager() {
     }
 
-    public static GpsService getInstance(){
+    public static GpsManager getInstance(){
         return instance;
     }
 
